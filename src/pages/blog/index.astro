@@ -1,0 +1,48 @@
+---
+import '../../styles/global.css';
+import { getCollection } from 'astro:content';
+import Header from '../../components/Header.jsx';
+import BlogFilter from '../../components/BlogFilter.jsx'; 
+import Footer from '../../components/Footer.jsx';
+
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<html lang="en">
+  <head>
+    <title>Intelligence Archive | 0xD3lta</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/delta-favicon.png" />
+  </head>
+  
+  <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
+    
+    <Header client:load />
+
+    <main class="container mx-auto px-4 py-24 min-h-screen">
+      
+      <header class="mb-16 border-b border-neutral-800 pb-12">
+        <p class="text-xs font-bold text-neutral-600 mb-6 tracking-[0.2em] uppercase">
+            // DATABASE_ACCESS
+        </p>
+        
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter leading-none uppercase">
+            INTELLIGENCE<br/>ARCHIVE
+        </h1>
+        
+        <div class="max-w-2xl border-l-2 border-neutral-800 pl-6">
+            <p class="text-lg text-neutral-500 leading-relaxed text-justify">
+              Central repository of offensive and defensive tradecraft. Use the command filters below to navigate between operation types and specific threat vectors.
+            </p>
+        </div>
+      </header>
+
+      <BlogFilter client:load allPosts={allPosts} />
+      
+    </main>
+
+    <Footer client:visible />
+  </body>
+</html>

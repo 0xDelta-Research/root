@@ -1,0 +1,541 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Header from '../../components/Header.jsx';
+import Footer from '../../components/Footer.jsx';
+import { User, Calendar, Clock, ArrowLeft, Terminal, FileText, Share2, AlertTriangle, Bug, Shield, Activity, Github, Linkedin, Globe, Twitter, Fingerprint, Crosshair, Radio, ScanEye } from 'lucide-react';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    // Lógica vital para não dar 404
+    params: { slug: (entry as any).slug || entry.id }, 
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const readTime = Math.ceil((entry.body || "").length / 2000); 
+
+// --- LÓGICA DE AUTOR ---
+const allTeam = await getCollection('team');
+const authorProfile = allTeam.find(member => member.data.name === entry.data.author);
+
+const IconMap: Record<string, any> = {
+  'Bug': Bug, 'Shield': Shield, 'Activity': Activity, 'Terminal': Terminal,
+  'Fingerprint': Fingerprint, 'Crosshair': Crosshair, 'Globe': Globe, 'Radio': Radio, 'ScanEye': ScanEye
+};
+
+const AuthorIcon = authorProfile && authorProfile.data.icon in IconMap 
+  ? IconMap[authorProfile.data.icon as keyof typeof IconMap] 
+  : Terminal;
+
+// --- LÓGICA DO ÍNDICE ---
+interface HeadingNode {
+  depth: number;
+  slug: string;
+  text: string;
+  subheadings: HeadingNode[];
+}
+
+const nestedHeadings: HeadingNode[] = [];
+
+headings.forEach((h: any) => {
+  if (h.depth === 2) {
+    nestedHeadings.push({ ...h, subheadings: [] });
+  } else if (h.depth === 3 && nestedHeadings.length > 0) {
+    nestedHeadings[nestedHeadings.length - 1].subheadings.push({ ...h, subheadings: [] });
+  }
+});
+---
+
+<html lang="en">
+<head>
+    <title>{entry.data.title} | 0xD3lta</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/delta-favicon.png" />
+</head>
+
+<body class="min-h-screen bg-[#050505] text-neutral-400 font-mono selection:bg-neutral-800 selection:text-white">
+    
+    <Header client:load />
+
+    <main class="container mx-auto px-4 py-12">
+        
+        {/* Botão Voltar */}
+        <div class="mb-8">
+            <a href="/blog" class="group inline-flex items-center gap-2 text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-widest border-b border-transparent hover:border-white pb-1">
+                <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
+                Return_To_Archive
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* --- SIDEBAR ESQUERDA (ÍNDICE) --- */}
+            <aside class="hidden lg:block lg:col-span-3 sticky top-32">
+                <div class="border border-neutral-800 bg-neutral-900/30 p-5 backdrop-blur-sm">
+                    <div class="flex items-center gap-2 text-xs text-white font-bold border-b border-neutral-800 pb-3 mb-4 uppercase tracking-widest">
+                        <Terminal className="w-3 h-3" />
+                        Contents_Index
+                    </div>
+                    
+                    {nestedHeadings.length > 0 ? (
+                        <nav>
+                            <ul class="space-y-1">
+                                {nestedHeadings.map((h2) => (
+                                    <li class="text-xs">
+                                        <a 
+                                            href={`#${h2.slug}`} 
+                                            class="toc-link block py-1.5 truncate border-l-2 border-transparent pl-3 transition-all duration-300 font-bold text-neutral-500 hover:text-white hover:border-white"
+                                            data-target={h2.slug}
+                                        >
+                                            {h2.text}
+                                        </a>
+                                        
+                                        {/* Subtítulos H3 */}
+                                        {h2.subheadings.length > 0 && (
+                                            <ul class="pl-4 border-l border-neutral-800 ml-2 mt-1 mb-2 space-y-1">
+                                                {h2.subheadings.map((h3: HeadingNode) => (
+                                                    <li>
+                                                        <a 
+                                                            href={`#${h3.slug}`}
+                                                            class="toc-link block py-1 text-neutral-600 hover:text-neutral-300 truncate transition-colors"
+                                                            data-target={h3.slug}
+                                                        >
+                                                            {h3.text}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    ) : (
+                        <p class="text-xs text-neutral-600 italic">No structure data.</p>
+                    )}
+
+                    {/* Metadata Box */}
+                    <div class="mt-8 pt-6 border-t border-neutral-800">
+                        <div class="text-[10px] text-neutral-600 uppercase tracking-widest mb-3">Target Tags</div>
+                        <div class="flex flex-wrap gap-2">
+                            {entry.data.tags?.map((tag: string) => (
+                                <span class="text-[10px] text-neutral-400 border border-neutral-800 bg-neutral-950 px-1.5 py-0.5">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            {/* --- CONTEÚDO PRINCIPAL --- */}
+            <article class="lg:col-span-9 max-w-4xl border-l border-neutral-900/50 pl-0 lg:pl-12 lg:border-l lg:border-neutral-900">
+                
+                {/* Header do Artigo */}
+                <header class="mb-12 border-b border-neutral-800 pb-10">
+
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-2 text-neutral-600 text-[10px] uppercase tracking-[0.2em]">
+                            <FileText className="w-4 h-4" />
+                            {/* Slug visual */}
+                            <span>Declassified Report // {(entry as any).slug || entry.id}</span>
+                        </div>
+
+                        {/* BADGE DE RISCO */}
+                        {entry.data.risk && (
+                            <div class={`flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border rounded-sm ${
+                                entry.data.risk === 'CRITICAL' ? 'border-red-500 text-red-500 bg-red-950/10 animate-pulse' :
+                                entry.data.risk === 'HIGH' ? 'border-orange-500 text-orange-500 bg-orange-950/10 animate-pulse' :
+                                entry.data.risk === 'MEDIUM' ? 'border-yellow-500 text-yellow-500 bg-yellow-950/10 animate-pulse' :
+                                entry.data.risk === 'INFO' ? 'border-green-500 text-green-500 bg-green-950/10 animate-pulse' :
+                                'border-blue-500 text-blue-500 bg-blue-950/10 animate-pulse'
+                            }`}>
+                                <AlertTriangle className="w-3 h-3" />
+                                {entry.data.risk}
+                            </div>
+                        )}
+                    </div>
+
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class={`px-2 py-0.5 text-[10px] font-bold uppercase border ${entry.data.team === 'Red Team' ? 'border-red-900 text-red-500 bg-red-950/10' : 'border-blue-900 text-blue-500 bg-blue-950/10'}`}>
+                            {entry.data.team}
+                        </span>
+                        <span class="text-neutral-600 text-xs">/</span>
+                        <span class="text-xs text-neutral-400 uppercase tracking-widest">
+                            {entry.data.category}
+                        </span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight tracking-tight uppercase">
+                        {entry.data.title}
+                    </h1>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs font-mono bg-neutral-900/30 p-4 border border-neutral-800">
+                        <div>
+                            <span class="text-neutral-600 block mb-1 uppercase tracking-wider">Operator</span>
+                            <span class="text-white font-bold flex items-center gap-2">
+                                <User className="w-3 h-3" /> {entry.data.author}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-neutral-600 block mb-1 uppercase tracking-wider">Date Logged</span>
+                            <span class="text-neutral-400 flex items-center gap-2">
+                                <Calendar className="w-3 h-3" /> {entry.data.pubDate.toISOString().split('T')[0]}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-neutral-600 block mb-1 uppercase tracking-wider">Est. Read</span>
+                            <span class="text-neutral-400 flex items-center gap-2">
+                                <Clock className="w-3 h-3" /> {readTime} MIN
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-neutral-600 block mb-1 uppercase tracking-wider">Ref ID</span>
+                            <span class="text-neutral-400 flex items-center gap-2">
+                                <FileText className="w-3 h-3" /> #{Math.floor(Math.random() * 9000) + 1000}
+                            </span>
+                        </div>
+                    </div>
+                </header>
+
+                {/* Corpo do Texto (Markdown Renderizado) */}
+                <div class="article-content mb-20" id="article-body">
+                    <Content />
+                </div>
+
+                {/* --- CARD DO AUTOR --- */}
+                {authorProfile && (
+                    <div class="border-t border-neutral-800 pt-12 mt-12">
+                        <div class="bg-neutral-900/20 border border-neutral-800 p-8 flex flex-col md:flex-row gap-8 items-start md:items-center relative overflow-hidden group hover:border-neutral-600 transition-colors">
+                            
+                            <div class="w-20 h-20 bg-neutral-950 border border-neutral-700 flex items-center justify-center shrink-0">
+                                <AuthorIcon className="w-8 h-8 text-neutral-400 group-hover:text-white transition-colors" />
+                            </div>
+
+                            <div class="flex-1">
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                                    <div>
+                                        <p class="text-[10px] text-neutral-500 uppercase tracking-[0.2em] mb-1">Authenticated Operator</p>
+                                        <h3 class="text-xl font-bold text-white uppercase tracking-wider mb-2">
+                                            {authorProfile.data.name}
+                                        </h3>
+                                        <div class="inline-flex items-center gap-2 px-2 py-0.5 bg-neutral-950 border border-neutral-800 text-[10px] text-neutral-400 font-mono mb-4">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.8)]"></span>
+                                            {authorProfile.data.role}
+                                        </div>
+                                    </div>
+
+                                    {/* Links */}
+                                    <div class="flex gap-4">
+                                        {authorProfile.data.social?.github && (
+                                            <a href={authorProfile.data.social.github} target="_blank" class="text-neutral-600 hover:text-white transition-colors">
+                                                <Github className="w-5 h-5" />
+                                            </a>
+                                        )}
+                                        {authorProfile.data.social?.linkedin && (
+                                            <a href={authorProfile.data.social.linkedin} target="_blank" class="text-neutral-600 hover:text-white transition-colors">
+                                                <Linkedin className="w-5 h-5" />
+                                            </a>
+                                        )}
+                                        {authorProfile.data.social?.website && (
+                                            <a href={authorProfile.data.social.website} target="_blank" class="text-neutral-600 hover:text-white transition-colors">
+                                                <Globe className="w-5 h-5" />
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                                
+                                {/* Skills */}
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    {authorProfile.data.skills.map((skill: string) => (
+                                        <span class="text-[9px] text-neutral-500 uppercase border-b border-neutral-800 pb-0.5">
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Rodapé */}
+                <div class="border-t border-neutral-800 pt-8 flex justify-between items-center mt-8">
+                    <div class="text-xs text-neutral-600 font-mono">
+                        END OF REPORT // {(entry as any).slug || entry.id}...
+                    </div>
+                    <button class="flex items-center gap-2 text-xs font-bold text-black bg-white px-4 py-2 hover:bg-neutral-300 transition-colors uppercase tracking-widest">
+                        <Share2 className="w-3 h-3" /> Share Intel
+                    </button>
+                </div>
+
+            </article>
+
+        </div>
+    </main>
+
+    <Footer client:visible />
+
+    {/* --- LIGHTBOX --- */}
+    <div id="image-lightbox" class="hidden fixed inset-0 z-[9999] bg-black/95 flex-col items-center justify-center p-4 cursor-zoom-out backdrop-blur-sm transition-opacity duration-300">
+        <img id="lightbox-img" src="" alt="Evidence" class="max-w-full max-h-[85vh] border border-white/20 shadow-2xl object-contain" />
+        <div class="mt-4 text-white font-mono text-xs flex items-center gap-2 bg-neutral-900 px-3 py-1 rounded border border-neutral-800">
+            <span class="animate-pulse text-red-500">●</span> IMAGE_PREVIEW_MODE // CLICK TO CLOSE
+        </div>
+    </div>
+
+    {/* --- SCRIPTS --- */}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    if (!id) return;
+                    const link = document.querySelector(`.toc-link[data-target="${id}"]`);
+                    if (entry.isIntersecting && link) {
+                        document.querySelectorAll('.toc-link').forEach(l => {
+                            l.classList.remove('toc-active');
+                            l.classList.remove('text-white');
+                            l.classList.add('text-neutral-500');
+                        });
+                        link.classList.add('toc-active');
+                        link.classList.remove('text-neutral-500');
+                        link.classList.add('text-white');
+                    }
+                });
+            }, { rootMargin: '-100px 0px -60% 0px' });
+
+            document.querySelectorAll('.article-content h2, .article-content h3').forEach(heading => {
+                observer.observe(heading);
+            });
+        });
+
+        document.querySelectorAll('pre').forEach((pre) => {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.innerHTML = `<span>COPY</span>`;
+            button.addEventListener('click', () => {
+                const codeElement = pre.querySelector('code');
+                if (!codeElement) return;
+                const code = codeElement.innerText;
+                navigator.clipboard.writeText(codeElement.innerText);
+                const originalHtml = button.innerHTML;
+                button.innerHTML = `<span style="color:#fff">COPIED</span>`;
+                button.style.borderColor = '#fff';
+                setTimeout(() => {
+                    button.innerHTML = originalHtml;
+                    button.style.borderColor = 'rgba(64, 64, 64, 0.5)';
+                }, 2000);
+            });
+            pre.style.position = 'relative';
+            pre.appendChild(button);
+        });
+
+        const lightbox = document.getElementById('image-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+        
+        document.querySelectorAll('.article-content img').forEach((element) => {
+            const img = element as HTMLImageElement;
+            img.style.cursor = 'zoom-in';
+            img.title = "Click to analyze evidence";
+            img.addEventListener('click', (e) => {
+                const target = e.target as HTMLImageElement;
+                if (lightbox && lightboxImg && target) {
+                    e.stopPropagation();
+                    lightboxImg.src = target.src;
+                    lightbox.classList.remove('hidden');
+                    lightbox.classList.add('flex');
+                }
+            });
+        });
+
+        if (lightbox) {
+            lightbox.addEventListener('click', () => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                if(lightboxImg) lightboxImg.src = '';
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }
+        });
+    </script>
+</body>
+</html>
+
+<style is:global>
+    /* Estilos do Artigo (PADRÃO DELTA - MONOCROMÁTICO TÁTICO) */
+    .article-content {
+        color: #d4d4d4; /* neutral-300 */
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+    .article-content h2 {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #262626; /* neutral-800 */
+        scroll-margin-top: 100px;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+    }
+    .article-content h3 {
+        color: #e5e5e5; /* neutral-200 */
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        scroll-margin-top: 100px;
+    }
+    .article-content p { margin-bottom: 1.5rem; text-align: justify; }
+    .article-content strong { color: #fff; font-weight: 700; }
+    .article-content a {
+        color: #fff;
+        text-decoration: underline;
+        text-decoration-color: #525252;
+        text-underline-offset: 4px;
+        transition: all 0.2s;
+    }
+    .article-content a:hover {
+        text-decoration-color: #fff;
+    }
+    
+    /* Tabelas Táticas */
+    .article-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        border: 1px solid #262626;
+        font-size: 0.85rem;
+    }
+    .article-content th {
+        background-color: #171717; /* neutral-900 */
+        color: #fff;
+        text-align: left;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #404040;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .article-content td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #262626;
+        color: #a3a3a3;
+    }
+    
+    /* Blocos de Código */
+    .article-content pre {
+        background-color: #0a0a0a !important;
+        border: 1px solid #262626;
+        padding: 1rem;
+        padding-top: 2.5rem;
+        border-radius: 0px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+    .article-content code {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #171717;
+        padding: 0.1em 0.3em;
+        border: 1px solid #262626;
+        color: #e5e5e5;
+    }
+    .article-content pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+    }
+
+    /* Botão Copiar */
+    .copy-button {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: #171717;
+        border: 1px solid #404040;
+        color: #a3a3a3;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.6rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    .copy-button:hover {
+        background-color: #fff;
+        color: #000;
+        border-color: #fff;
+    }
+
+    /* Citações */
+    .article-content blockquote {
+        border-left: 2px solid #fff;
+        background-color: #171717;
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        font-style: normal;
+        color: #d4d4d4;
+        font-family: monospace;
+        font-size: 0.9rem;
+    }
+
+    /* Listas */
+    .article-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+    }
+    .article-content li {
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+    .article-content li::before {
+        content: ">>";
+        position: absolute;
+        left: 0;
+        color: #525252;
+        font-size: 0.8rem;
+    }
+
+    /* Imagens (Borda Branca/Cinza e Efeito) */
+    .article-content img {
+        border: 1px solid #262626;
+        background-color: #000;
+        padding: 5px;
+        transition: all 0.3s ease;
+        opacity: 0.8;
+        margin: 2rem 0;
+        filter: grayscale(40%);
+    }
+    .article-content img:hover {
+        border-color: #fff;
+        opacity: 1;
+        filter: grayscale(0%);
+    }
+
+    /* Índice Ativo */
+    .toc-active {
+        color: #fff !important;
+        font-weight: bold;
+        border-left-color: #fff !important;
+        background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    }
+</style>
