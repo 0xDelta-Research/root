@@ -1,5 +1,5 @@
 ---
-title: "Threat Actor Profile: Midia2"
+title: "Threat Actor Profile: Midia22"
 description: "A investigation of Midia22, a Brazilian Initial Access Broker operating across government systems and Telegram cybercrime channels."
 risk: "INFO"
 pubDate: 2026-01-06
