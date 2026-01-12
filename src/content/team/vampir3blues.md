@@ -1,11 +1,11 @@
 ---
 name: "VAMPIR3BLUES"
-role: "DFIR LEADER"
+role: "THREAT RESEARCH OPERATOR"
 team: "Blue Team"
-specialty: "Incident Response"
+specialty: "Cyber Threat Intelligence"
 icon: "Fingerprint"
 status: "ONLINE"
-skills: ["Digital Forensics", "Incident Response", "Memory Analysis"]
+skills: ["Threat Intel", "Threat Hunting", "Malware Analysis"]
 social:
   linkedin: "https://www.linkedin.com/in/vampir3blues/"
   github: "https://github.com/vampir3blues"
