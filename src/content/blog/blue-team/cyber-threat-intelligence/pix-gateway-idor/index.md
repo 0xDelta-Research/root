@@ -3,7 +3,7 @@ title: "Investigation: Critical IDOR in PIX Payment Gateway"
 description: "Analysis of a mass phishing campaign mimicking the Postal Service that revealed a massive IDOR in a payment processor, exposing PII and enabling fraud."
 risk: "CRITICAL"
 pubDate: 2025-04-24
-author: "0x_olympus"
+author: "0x_OLYMPUS"
 team: "Blue Team"
 category: "Cyber Threat Intelligence"
 tags: ["IDOR", "Fraud", "PIX", "BurpSuite", "Data Leak", "Phishing"]

@@ -3,7 +3,7 @@ title: "Abusing WhatsApp Desktop for Initial Access: Python ZipApp Reverse Shell
 description: "A technical analysis of how .pyz files can be used to bypass protections and establish a Reverse Shell via WhatsApp Desktop."
 risk: "HIGH"
 pubDate: 2025-12-26
-author: "serros404"
+author: "SERROS404"
 team: "Red Team"
 category: "Offensive Techniques"
 tags: ["Red Team", "Initial Access", "Python", "Evasion", "Social Engineering"]

@@ -3,7 +3,7 @@ title: "Cybersecurity Essentials: Understanding Risks & Defense Stack"
 description: "A comprehensive guide on modern cyber risks, APTs, and the essential toolset for defensive operations—from Vulnerability Management to IAM."
 risk: "INFO"
 pubDate: 2025-05-01
-author: "specieunknown_"
+author: "SPECIEUNKN0WN_"
 team: "Blue Team"
 category: "Detection Engineering"
 tags: ["Blue Team", "Hardening", "Tools", "IAM", "Network Security"]
