@@ -5,7 +5,7 @@ team: "Blue Team"
 specialty: "Intel & Defense"
 icon: "Shield"
 status: "ONLINE"
-skills: ["Detection Eng.", "Log Analysis", "SIEM Architecture"]
+skills: ["Mobile Security", "Data Privacy", "SecOps"]
 social:
   linkedin: "https://www.linkedin.com/in/fabiotsouza/"
   github: "https://github.com/stnert"
