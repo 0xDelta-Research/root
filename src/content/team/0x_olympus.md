@@ -5,7 +5,7 @@ team: "Blue Team"
 specialty: "APT Analysis"
 icon: "Bug"
 status: "ONLINE"
-skills: ["Reverse Engineering", "APT Tracking", "Threat Intel"]
+skills: ["Reverse Engineering", "APT Tracking", "Malware Analysis"]
 social:
   linkedin: "https://www.linkedin.com/in/moises-cerqueira/"
 ---
