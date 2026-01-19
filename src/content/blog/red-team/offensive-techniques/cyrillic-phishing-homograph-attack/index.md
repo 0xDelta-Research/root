@@ -3,7 +3,7 @@ title: "Cyrillic Phishing: When a Domain Looks Legit — but Isn’t"
 description: "An in-depth look at how threat actors abuse Unicode characters in IDN homograph attacks to achieve initial access through phishing."
 risk: "MEDIUM"
 pubDate: 2026-01-13
-author: "AnkhCorp"
+author: "ANKHCORP"
 team: "Red Team"
 category: "Offensive Techniques"
 tags: ["Red Team", "Initial Access", "Phishing", "Homograph Attack", "Social Engineering", "IDN Abuse"]
