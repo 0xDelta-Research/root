@@ -1,0 +1,35 @@
+name: 0xDelta IOC Feed Bot
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # toda hora em ponto
+  workflow_dispatch:        # disparo manual para testes
+
+jobs:
+  run-ioc-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+
+      - name: Restore IOC seen cache
+        uses: actions/cache@v4
+        with:
+          path: seen_iocs.json
+          key: seen-iocs-${{ github.run_id }}
+          restore-keys: seen-iocs-
+
+      - name: Run IOC bot
+        env:
+          DISCORD_TOKEN:  ${{ secrets.DISCORD_TOKEN }}
+          IOC_CHANNEL_ID: ${{ secrets.IOC_CHANNEL_ID }}
+          OTX_API_KEY:    ${{ secrets.OTX_API_KEY }}
+        run: python 0xdelta_ioc_bot.py --quiet
