@@ -1,0 +1,35 @@
+name: 0xDelta CVE Watcher + EPSS
+
+on:
+  schedule:
+    - cron: '30 * * * *'   # todo hora e meia (offset do IOC bot que roda na hora em ponto)
+  workflow_dispatch:
+
+jobs:
+  run-cve-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+
+      - name: Restore CVE seen cache
+        uses: actions/cache@v4
+        with:
+          path: seen_cves.json
+          key: seen-cves-${{ github.run_id }}
+          restore-keys: seen-cves-
+
+      - name: Run CVE bot
+        env:
+          DISCORD_TOKEN:  ${{ secrets.DISCORD_TOKEN }}
+          CVE_CHANNEL_ID: ${{ secrets.CVE_CHANNEL_ID }}
+          NVD_API_KEY:    ${{ secrets.NVD_API_KEY }}
+        run: python 0xdelta_cve_bot.py --quiet --severity MEDIUM
