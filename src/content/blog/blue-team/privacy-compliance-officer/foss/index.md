@@ -154,7 +154,7 @@ This ensures defensive continuity, a requirement in critical and high-assurance 
 
 ## Conclusion
 
-FOSS does not guarantee perfect security. Nothing does.
+Customize your own privacy configuration: Harden it.
 
 What it guarantees is something far more important: **the ability to know**.
 
