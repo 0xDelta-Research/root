@@ -1,43 +1,58 @@
-# Astro Starter Kit: Minimal
-
-```sh
-npm create astro@latest -- --template minimal
+```
+ ██████╗ ██╗  ██╗██████╗ ██████╗ ██╗  ████████╗ █████╗
+██╔═████╗╚██╗██╔╝██╔══██╗╚════██╗██║  ╚══██╔══╝██╔══██╗
+██║██╔██║ ╚███╔╝ ██║  ██║ █████╔╝██║     ██║   ███████║
+████╔╝██║ ██╔██╗ ██║  ██║ ╚═══██╗██║     ██║   ██╔══██║
+╚██████╔╝██╔╝ ██╗██████╔╝██████╔╝███████╗██║   ██║  ██║
+ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═════╝ ╚══════╝╚═╝   ╚═╝  ╚═╝
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+we are a closed group of offensive and defensive security practitioners.
+we don't do marketing. we don't do certifications.
+we work in the environments where attacks happen for real.
 
-## 🚀 Project Structure
+this repository is the source code for **[0xdelta.org](https://0xdelta.org)** — our public intelligence archive.
+the site is open. the team is not.
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+### operators
+
+**[0x_OLYMPUS](https://www.linkedin.com/in/moises-cerqueira/)** — leads the research unit. tracks APT campaigns, dissects malware, and connects the dots between threat actors and their tooling. if there's a pattern, he finds it.
+
+**[SPECIEUNKN0WN_](https://github.com/stnert)** — SOC lead. mobile security, data privacy, and security operations. the one who makes sure the defensive side doesn't sleep.
+
+**[VAMPIR3BLUES](https://github.com/vampir3blues)** — cyber threat intelligence and threat hunting. follows adversaries across infrastructure, correlates IOCs, and publishes what others prefer to ignore.
+
+**[SERROS404](https://github.com/serros404)** — red team lead. web exploitation and API security. finds what the scanner missed and documents exactly how deep it goes.
+
+**[ANKHCORP](https://github.com/Ankhcorp)** — web exploitation, OSINT, and C2 infrastructure. if it's reachable from the internet, it's a target.
+
+---
+
+we publish when we have something worth publishing.
+no schedule. no quota. no filler.
+
+if it's here, it went through the team.
+if it didn't, it's not here.
+
+---
+
+```
+github   → github.com/0xDelta-Research
+linkedin → linkedin.com/company/0xdeltaresearch
+discord  → discord.gg/SUBSTITUA_AQUI
+contact  → root@0xdelta.org
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+> *"if you're looking for marketing-safe security, we're not it."*
 
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+// this repo accepts no external contributions
+// the code is public because hiding it would be pointless
+// 0x44 0x45 0x4C 0x54 0x41
+```

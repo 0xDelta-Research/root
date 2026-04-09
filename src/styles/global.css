@@ -12,6 +12,11 @@
         linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     background-size: 40px 40px;
+
+    /* Footer sticky ao rodapé */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
   /* Títulos: Neutral-200 (Branco Gelo/Cinza Claro) em vez de White puro */
@@ -42,13 +47,6 @@
 
 .text-justify {
   text-align: justify;
-}
-/* Classes utilitárias para imagens em markdown */
-.article-content img {
-  border: 1px solid #262626;
-  background-color: #0a0a0a;
-  padding: 10px;
-  filter: grayscale(20%);
 }
 
 /* --- ESTILO TÁTICO PARA VÍDEOS --- */

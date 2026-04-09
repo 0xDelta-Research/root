@@ -1,0 +1,152 @@
+{
+  "name": "YARA",
+  "scopeName": "source.yara",
+  "fileTypes": ["yar", "yara"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#rule-definition" },
+    { "include": "#section-keywords" },
+    { "include": "#strings" },
+    { "include": "#variables" },
+    { "include": "#keywords" },
+    { "include": "#numbers" },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.yara",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.yara",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "rule-definition": {
+      "match": "\\b(rule|private rule|global rule)\\s+([A-Za-z_][A-Za-z0-9_]*)(?:\\s*:\\s*([A-Za-z_][A-Za-z0-9_\\s,]*))?",
+      "captures": {
+        "1": { "name": "keyword.control.rule.yara" },
+        "2": { "name": "entity.name.function.rule.yara" },
+        "3": { "name": "entity.other.inherited-class.yara" }
+      }
+    },
+    "section-keywords": {
+      "name": "keyword.control.section.yara",
+      "match": "\\b(meta|strings|condition)\\s*:"
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.yara",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.yara", "match": "\\\\." }
+          ]
+        },
+        {
+          "name": "string.other.hex.yara",
+          "begin": "\\{",
+          "end": "\\}",
+          "patterns": [
+            { "name": "comment.block.hex.yara", "begin": "/\\*", "end": "\\*/" },
+            { "name": "constant.numeric.hex.yara", "match": "[0-9A-Fa-f?]+" },
+            { "name": "keyword.operator.alternation.yara", "match": "\\|" }
+          ]
+        },
+        {
+          "name": "string.regexp.yara",
+          "begin": "(?<![\\w/])/(?![/*])",
+          "end": "/[ismx]*",
+          "patterns": [
+            { "name": "constant.character.escape.yara", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.yara",
+          "match": "\\$[A-Za-z_][A-Za-z0-9_]*\\*?"
+        },
+        {
+          "name": "variable.other.anonymous.yara",
+          "match": "\\$(?=\\s)"
+        },
+        {
+          "name": "variable.other.count.yara",
+          "match": "#[A-Za-z_][A-Za-z0-9_]*"
+        },
+        {
+          "name": "variable.other.offset.yara",
+          "match": "@[A-Za-z_][A-Za-z0-9_]*"
+        },
+        {
+          "name": "variable.other.length.yara",
+          "match": "![A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.yara",
+          "match": "\\b(import|include|global|private)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.yara",
+          "match": "\\b(and|or|not|any|all|none|of|them|for|in|at|entrypoint|filesize|true|false)\\b"
+        },
+        {
+          "name": "keyword.operator.string-modifier.yara",
+          "match": "\\b(nocase|wide|ascii|fullword|base64|base64wide|xor)\\b"
+        },
+        {
+          "name": "support.function.yara",
+          "match": "\\b(uint8|uint16|uint32|uint64|int8|int16|int32|int64|uint8be|uint16be|uint32be|int8be|int16be|int32be|int64be|contains|icontains|startswith|istartswith|endswith|iendswith|iequals|matches|defined|pe|elf|math|hash|cuckoo|magic|time|console|dotnet|macho)\\b"
+        },
+        {
+          "name": "constant.language.yara",
+          "match": "\\b(true|false)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.yara",
+          "match": "\\b0x[0-9A-Fa-f]+\\b"
+        },
+        {
+          "name": "constant.numeric.octal.yara",
+          "match": "\\b0o[0-7]+\\b"
+        },
+        {
+          "name": "constant.numeric.decimal.yara",
+          "match": "\\b[0-9]+(KB|MB|GB)?\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.comparison.yara",
+          "match": "(==|!=|<=|>=|<|>)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.yara",
+          "match": "(\\+|-|\\*|\\\\|%)"
+        },
+        {
+          "name": "keyword.operator.bitwise.yara",
+          "match": "(&|\\||\\^|~|<<|>>)"
+        }
+      ]
+    }
+  }
+}

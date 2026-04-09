@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Componente isolado para o Glitch do "3" vira "E"
 const GlitchDigit = () => {
@@ -59,9 +59,37 @@ const GlitchDigit = () => {
   );
 };
 
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Research' },
+  { href: '/#team', label: 'Operators' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/donate', label: 'Support' },
+];
+
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState('');
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+    const handleRouteChange = () => {
+      setMenuOpen(false);
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  const isActive = (href) => {
+    const path = href.split('#')[0];
+    if (path === '/') return currentPath === '/';
+    return currentPath.startsWith(path);
+  };
+
   return (
-    <motion.header 
+    <>
+    <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -92,32 +120,85 @@ const Header = () => {
             </div>
           </a>
           
-          {/* MENU DE NAVEGAÇÃO */}
+          {/* MENU DE NAVEGAÇÃO — desktop */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/" className="text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold">
-              Home
-            </a>
-            <a href="/blog" className="text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold">
-              Research
-            </a>
-            <a href="/#team" className="text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold">
-              Operators
-            </a>
-            <a href="/contact" className="text-neutral-400 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold">
-              Contact
-            </a>
+            {navLinks.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                className={`relative text-xs uppercase tracking-widest font-bold transition-colors duration-200 pb-0.5 ${
+                  isActive(href)
+                    ? 'text-white after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                {label}
+              </a>
+            ))}
           </nav>
-          
-          {/* STATUS */}
-          <div className="flex items-center gap-2">
+
+          {/* STATUS + HAMBURGER */}
+          <div className="flex items-center gap-3">
             <div className="hidden sm:block text-[10px] text-neutral-500 font-mono border border-neutral-800 px-3 py-1 rounded bg-neutral-900/50">
-              <span className="animate-pulse text-green-500 inline-block mr-2">●</span> 
+              <span className="animate-pulse text-green-500 inline-block mr-2">●</span>
               SYSTEM_ONLINE
             </div>
+
+            {/* Hamburger — mobile only */}
+            <button
+              onClick={() => setMenuOpen(prev => !prev)}
+              className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 border border-neutral-800 bg-neutral-900/50"
+              aria-label="Toggle menu"
+            >
+              <motion.span
+                animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                className="block w-4 h-px bg-neutral-400"
+              />
+              <motion.span
+                animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="block w-4 h-px bg-neutral-400"
+              />
+              <motion.span
+                animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                className="block w-4 h-px bg-neutral-400"
+              />
+            </button>
           </div>
         </div>
       </div>
     </motion.header>
+
+    {/* Menu mobile — slide-in abaixo do header */}
+    <AnimatePresence>
+      {menuOpen && (
+        <motion.nav
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2 }}
+          className="md:hidden fixed top-20 left-0 right-0 z-40 bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800"
+        >
+          <div className="flex flex-col px-6 py-4 gap-1">
+            {navLinks.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className={`flex items-center gap-2 py-3 text-xs font-bold uppercase tracking-widest border-b border-neutral-900 last:border-0 transition-colors ${
+                  isActive(href) ? 'text-white' : 'text-neutral-500 hover:text-white'
+                }`}
+              >
+                <span className={isActive(href) ? 'text-white' : 'text-neutral-700'}>&gt;</span> {label}
+              </a>
+            ))}
+            <div className="mt-3 pt-3 border-t border-neutral-900 text-[10px] text-neutral-700 font-mono">
+              <span className="text-green-600">●</span> SYSTEM_ONLINE // 0xD3LTA
+            </div>
+          </div>
+        </motion.nav>
+      )}
+    </AnimatePresence>
+    </>
   );
 };
 

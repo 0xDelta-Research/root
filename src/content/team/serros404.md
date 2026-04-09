@@ -2,10 +2,11 @@
 name: "SERROS404"
 role: "RED TEAM LEADER"
 team: "Red Team"
-specialty: "Exploit Dev"
+specialty: "Web Pentest"
 icon: "Crosshair"
 status: "ONLINE"
-skills: ["Active Directory", "Malware Dev", "Evasion"]
+bio: "Web exploitation and API security. Finds what the scanner missed and documents exactly how deep it goes."
+skills: ["Web Exploitation", "API Security", "Pentest"]
 social:
   linkedin: "https://linkedin.com/in/juanserros/"
   github: "https://github.com/serros404"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Terminal, Filter, X, ChevronDown, ChevronUp, Shield, Bug, Trash2, RotateCcw, AlertTriangle } from 'lucide-react';
 import LatestResearch from './LatestResearch';
 
@@ -10,6 +10,13 @@ const BlogFilter = ({ allPosts }) => {
   
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [showRiskMenu, setShowRiskMenu] = useState(false);
+
+  // Lê ?search= da URL ao montar (ex: tags clicáveis nos posts)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get('search');
+    if (s) setSearchQuery(s);
+  }, []);
 
   // Listas
   const allBlueCategories = [ 'Threat Hunting', 'OSINT', 'Detection Engineering', 'Cyber Threat Intelligence', 'Malware Analysis & Reverse Engineering', 'Privacy Compliance Officer' ];
@@ -25,8 +32,9 @@ const BlogFilter = ({ allPosts }) => {
   const filteredPosts = allPosts.filter(post => {
     const matchTeam = activeTeam === 'ALL' ? true : post.data.team === activeTeam;
     const query = searchQuery.toLowerCase();
-    const matchSearch = post.data.title.toLowerCase().includes(query) || 
-                        post.data.description.toLowerCase().includes(query);
+    const matchSearch = post.data.title.toLowerCase().includes(query) ||
+                        post.data.description.toLowerCase().includes(query) ||
+                        post.data.tags?.some((tag) => tag.toLowerCase().includes(query));
     const matchCategory = activeCategory === '' ? true : post.data.category === activeCategory;
     const matchRisk = activeRisk === '' ? true : post.data.risk === activeRisk;
 
@@ -93,11 +101,11 @@ const BlogFilter = ({ allPosts }) => {
       </div>
 
       {/* Barra de Controle */}
-      <div className="bg-neutral-900/50 border border-neutral-800 p-6 sticky top-24 z-30 shadow-2xl shadow-black backdrop-blur-md">
-        
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
-          
-          <div className="flex flex-wrap gap-3 w-full md:w-auto items-center">
+      <div className="bg-neutral-900/50 border border-neutral-800 p-4 md:p-6 sticky top-24 z-30 shadow-2xl shadow-black backdrop-blur-md">
+
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-between items-start md:items-center">
+
+          <div className="flex flex-wrap gap-2 md:gap-3 w-full md:w-auto items-center">
               
               {/* Botões de Time (AGORA COM CORES) */}
               <div className="flex gap-2">
@@ -117,7 +125,7 @@ const BlogFilter = ({ allPosts }) => {
                       <button
                         key={team}
                         onClick={() => { setActiveTeam(team); setActiveCategory(''); setActiveRisk(''); }}
-                        className={`px-4 py-2 text-[9px] font-bold uppercase tracking-widest border transition-all duration-300 ${
+                        className={`px-3 md:px-4 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all duration-300 ${
                           activeTeam === team
                             ? activeClass
                             : `bg-transparent text-neutral-600 border-neutral-800 ${hoverClass}`
@@ -134,7 +142,7 @@ const BlogFilter = ({ allPosts }) => {
               {/* Botão de Categoria */}
               <button 
                 onClick={() => { setShowCategoryMenu(!showCategoryMenu); setShowRiskMenu(false); }}
-                className={`flex items-center gap-2 px-4 py-2 border text-[9px] font-bold uppercase tracking-widest transition-all ${
+                className={`flex items-center gap-2 px-3 md:px-4 py-2 border text-[10px] font-bold uppercase tracking-widest transition-all ${
                     showCategoryMenu || activeCategory
                     ? 'bg-neutral-800 text-white border-white'
                     : 'bg-transparent text-neutral-600 border-neutral-800 hover:border-neutral-500 hover:text-white'
@@ -156,7 +164,7 @@ const BlogFilter = ({ allPosts }) => {
               {/* Botão de Risco */}
               <button 
                 onClick={() => { setShowRiskMenu(!showRiskMenu); setShowCategoryMenu(false); }}
-                className={`flex items-center gap-2 px-4 py-2 border text-[9px] font-bold uppercase tracking-widest transition-all ${
+                className={`flex items-center gap-2 px-3 md:px-4 py-2 border text-[10px] font-bold uppercase tracking-widest transition-all ${
                     showRiskMenu || activeRisk
                     ? 'bg-neutral-800 text-white border-white'
                     : 'bg-transparent text-neutral-600 border-neutral-800 hover:border-neutral-500 hover:text-white'
@@ -177,7 +185,7 @@ const BlogFilter = ({ allPosts }) => {
               {isFilterActive && (
                   <button 
                     onClick={clearFilters}
-                    className="flex items-center gap-2 px-4 py-2 text-[9px] font-bold text-neutral-500 border border-neutral-800 hover:border-white hover:text-white transition-all uppercase tracking-widest animate-in fade-in zoom-in duration-300"
+                    className="flex items-center gap-2 px-3 md:px-4 py-2 text-[10px] font-bold text-neutral-500 border border-neutral-800 hover:border-white hover:text-white transition-all uppercase tracking-widest animate-in fade-in zoom-in duration-300"
                   >
                     <RotateCcw className="w-3 h-3" /> RESET
                   </button>
@@ -185,7 +193,7 @@ const BlogFilter = ({ allPosts }) => {
           </div>
 
           {/* Busca */}
-          <div className="relative w-full md:w-auto flex-grow md:max-w-xs">
+          <div className="relative w-full md:w-auto flex-grow md:max-w-xs mt-1 md:mt-0">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Terminal className="h-4 w-4 text-neutral-600" />
             </div>

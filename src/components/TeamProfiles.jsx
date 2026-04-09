@@ -50,7 +50,7 @@ const TeamProfiles = (props) => {
 
           return (
             <motion.div
-              key={member.slug}
+              key={member.id || member.slug}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -78,7 +78,7 @@ const TeamProfiles = (props) => {
               </div>
 
               {/* PERFIL: Ícone + Nome */}
-              <div className="flex flex-col items-center text-center gap-5 mb-8">
+              <div className="flex flex-col items-center text-center gap-5 mb-8 min-h-[140px] justify-center">
                 {/* Ícone MAIOR */}
                 <div className={`
                     w-16 h-16 border border-neutral-700 bg-neutral-950 flex items-center justify-center 
@@ -99,7 +99,7 @@ const TeamProfiles = (props) => {
               </div>
 
               {/* LINKS SOCIAIS */}
-              <div className="flex justify-center gap-5 mb-8">
+              <div className="flex justify-center gap-5 h-10 items-center mb-6">
                 {member.data.social?.github && (
                     <a href={member.data.social.github} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <Github className="w-5 h-5" />
@@ -112,8 +112,8 @@ const TeamProfiles = (props) => {
                 )}
               </div>
 
-              {/* SKILLS MAIORES */}
-              <div className="mt-auto space-y-4">
+              {/* SKILLS */}
+              <div className="space-y-4">
                 <div className={`h-[1px] w-full bg-neutral-800 transition-colors ${styles.borderHover}`}></div>
                 <div className="flex flex-wrap justify-center gap-2">
                   {member.data.skills.slice(0, 3).map((skill, i) => (
@@ -138,11 +138,6 @@ const TeamProfiles = (props) => {
         })}
       </div>
 
-      <div className="mt-20 text-center border-t border-neutral-900 pt-8">
-        <p className="text-neutral-700 text-[10px] max-w-xl mx-auto font-mono">
-          // ACCESS_LEVEL: PUBLIC //
-        </p>
-      </div>
     </div>
   );
 };
