@@ -32,4 +32,4 @@ jobs:
           DISCORD_TOKEN:  ${{ secrets.DISCORD_TOKEN }}
           CVE_CHANNEL_ID: ${{ secrets.CVE_CHANNEL_ID }}
           NVD_API_KEY:    ${{ secrets.NVD_API_KEY }}
-        run: python 0xdelta_cve_bot.py --quiet --severity MEDIUM
+        run: python 0xdelta_cve_bot.py --quiet --severity HIGH
