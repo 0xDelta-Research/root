@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+---
+
+<html lang="en">
+  <head>
+    <title>Support | 0xD3lta Research</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/delta-favicon.png" />
+    <!-- SEO -->
+    <meta name="description" content="Support 0xD3lta Research — fund independent cybersecurity research." />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="0xD3lta Research" />
+    <meta property="og:title" content="Support | 0xD3lta Research" />
+    <meta property="og:description" content="Support 0xD3lta Research — fund independent cybersecurity research." />
+    <meta property="og:url" content="https://0xdelta.org/donate" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Support | 0xD3lta Research" />
+    <meta name="twitter:description" content="Support 0xD3lta Research — fund independent cybersecurity research." />
+  </head>
+
+  <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono">
+
+    <Header client:idle />
+
+    <main class="container mx-auto px-4 py-24 min-h-screen">
+
+      <!-- Header -->
+      <header class="mb-16 border-b border-neutral-800 pb-12">
+        <p class="text-xs font-bold text-neutral-600 mb-6 tracking-[0.2em] uppercase">
+          // FUND_THE_RESEARCH
+        </p>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter leading-none uppercase">
+          SUPPORT<br/>0xD3LTA
+        </h1>
+        <div class="max-w-2xl border-l-2 border-neutral-800 pl-6">
+          <p class="text-lg text-neutral-500 leading-relaxed">
+            No ads. No sponsors. No paywalls. Everything published here is free and always will be.
+            If the research is useful to you, consider supporting the team.
+          </p>
+        </div>
+      </header>
+
+      <!-- Cards -->
+      <div class="max-w-lg">
+
+        <!-- Buy Me a Coffee -->
+        <div class="border border-neutral-800 bg-neutral-900/40 p-8 flex flex-col gap-6 group hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/5 hover:shadow-[0_0_30px_-5px_rgba(255,221,0,0.15)] transition-all duration-300">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-[10px] font-bold text-neutral-600 uppercase tracking-widest mb-2">// QUICK_SUPPORT</p>
+              <h2 class="text-xl font-bold text-white uppercase tracking-tight">Buy Me a Coffee</h2>
+              <p class="text-xs text-neutral-500 mt-1">Credit card, PayPal, Apple Pay</p>
+            </div>
+            <!-- Coffee cup icon -->
+            <div class="w-12 h-12 border border-neutral-800 bg-neutral-950 flex items-center justify-center shrink-0 group-hover:border-[#FFDD00]/30 transition-colors">
+              <svg class="w-6 h-6 text-[#FFDD00] opacity-60 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+                <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+                <line x1="6" y1="2" x2="6" y2="4"/>
+                <line x1="10" y1="2" x2="10" y2="4"/>
+                <line x1="14" y1="2" x2="14" y2="4"/>
+              </svg>
+            </div>
+          </div>
+
+          <p class="text-sm text-neutral-500 leading-relaxed flex-1">
+            Fastest way to support. One-time or monthly — your call. Every coffee goes directly toward tools, infra, and research time.
+          </p>
+
+          <a
+            href="https://buymeacoffee.com/0xd3ltaresearch"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FFDD00] text-black text-xs font-bold uppercase tracking-widest hover:bg-yellow-300 transition-colors w-full"
+          >
+            Support the Team
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Footer note -->
+      <p class="mt-12 text-[11px] text-neutral-700 font-mono max-w-xl">
+        // ALL_CONTRIBUTIONS_ARE_VOLUNTARY — this research will remain public regardless.
+        <br/>// NO_PERKS. NO_TIERS. JUST_THE_WORK.
+      </p>
+
+    </main>
+
+    <Footer client:visible />
+
+
+  </body>
+</html>

@@ -37,15 +37,17 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
         const teamBgHover = isRed ? 'hover:bg-red-950/10' : 'hover:bg-blue-950/10';
 
         return (
-          <div 
-            key={post.slug} 
+          <a
+            key={post.id || post.slug}
+            href={`/blog/${post.slug || post.id}`}
             className={`
                 group relative flex flex-col h-full p-6
                 border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm
-                transition-all duration-300 ease-out
+                transition-all duration-300 ease-out cursor-pointer
                 ${teamHoverBorder} ${teamHoverShadow} ${teamBgHover}
             `}
           >
+
             {/* Linha decorativa no topo */}
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-neutral-800 to-transparent group-hover:via-white/20 transition-all"></div>
 
@@ -107,11 +109,9 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                     </span>
                 </div>
 
-                <a href={`/blog/${post.slug || post.id}`} className={`flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-600 group-hover:text-white transition-colors`}>
-                    ACCESS <ArrowRight className={`w-3 h-3 transition-transform group-hover:translate-x-1 ${teamTextHover}`} />
-                </a>
+                <ArrowRight className={`w-4 h-4 transition-all group-hover:translate-x-1 text-neutral-700 ${teamTextHover}`} />
             </div>
-          </div>
+          </a>
         );
       })}
     </div>

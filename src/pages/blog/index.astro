@@ -11,15 +11,28 @@ const allPosts = (await getCollection('blog'))
 
 <html lang="en">
   <head>
-    <title>Intelligence Archive | 0xD3lta</title>
+    <title>Intelligence Archive | 0xD3lta Research</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/delta-favicon.png" />
+    <link rel="alternate" type="application/rss+xml" title="0xD3lta Research" href="/rss.xml" />
+    <!-- SEO -->
+    <meta name="description" content="Intelligence Archive — Central repository of offensive and defensive cybersecurity tradecraft by 0xD3lta Research." />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="0xD3lta Research" />
+    <meta property="og:title" content="Intelligence Archive | 0xD3lta Research" />
+    <meta property="og:description" content="Central repository of offensive and defensive tradecraft. Red Team, Blue Team, malware analysis, threat hunting." />
+    <meta property="og:url" content="https://0xdelta.org/blog" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Intelligence Archive | 0xD3lta Research" />
+    <meta name="twitter:description" content="Central repository of offensive and defensive tradecraft. Red Team, Blue Team, malware analysis, threat hunting." />
   </head>
   
   <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
     
-    <Header client:load />
+    <Header client:idle />
 
     <main class="container mx-auto px-4 py-24 min-h-screen">
       

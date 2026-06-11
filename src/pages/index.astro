@@ -16,8 +16,10 @@ const teamOrder = [
   "0x_OLYMPUS",
   "SPECIEUNKN0WN_",
   "VAMPIR3BLUES",
-  "SERROS404", 
-  "ANKHCORP"
+  "SERROS404",
+  "ANKHCORP",
+  "E0B3",
+  "RWX_GHOST"
 ];
 const teamMembers = rawTeamMembers.sort((a, b) => {
   const indexA = teamOrder.indexOf(a.data.name);
@@ -31,17 +33,30 @@ const latestPosts = allPosts
   .slice(0, 3);
 ---
 
-<html lang="pt-br">
+<html lang="en">
   <head>
-    <title>0xD3lta Research</title>
+    <title>0xD3lta Research — Offensive & Defensive Security</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/delta-favicon.png" />
+    <link rel="alternate" type="application/rss+xml" title="0xD3lta Research" href="/rss.xml" />
+    <!-- SEO -->
+    <meta name="description" content="0xD3lta Research — Offensive and defensive cybersecurity research. Red Team techniques, malware analysis, threat hunting, and more." />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="0xD3lta Research" />
+    <meta property="og:title" content="0xD3lta Research — Offensive & Defensive Security" />
+    <meta property="og:description" content="Offensive and defensive cybersecurity research by practitioners who work in the environments where attacks unfold for real." />
+    <meta property="og:url" content="https://0xdelta.org" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="0xD3lta Research" />
+    <meta name="twitter:description" content="Offensive and defensive cybersecurity research by practitioners who work in the environments where attacks unfold for real." />
   </head>
   
   <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono relative overflow-x-hidden">
     
-    <Header client:load />
+    <Header client:idle />
     
     <main class="relative z-10">
       

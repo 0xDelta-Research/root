@@ -1,0 +1,200 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Header from '../../components/Header.jsx';
+import Footer from '../../components/Footer.jsx';
+import LatestResearch from '../../components/LatestResearch.jsx';
+import '../../styles/global.css';
+import {
+  Terminal, Shield, Activity, Bug, Github, Linkedin, Globe, Twitter,
+  Fingerprint, Crosshair, Radio, ScanEye, ArrowLeft
+} from 'lucide-react';
+
+export async function getStaticPaths() {
+  const teamMembers = await getCollection('team');
+  const blogPosts = await getCollection('blog');
+
+  return teamMembers.map((member) => ({
+    params: { id: member.id },
+    props: {
+      member,
+      posts: blogPosts
+        .filter(p => p.data.author.toLowerCase() === member.data.name.toLowerCase())
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+interface Props {
+  member: CollectionEntry<'team'>;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { member, posts } = Astro.props;
+const { data } = member;
+
+const IconMap: Record<string, any> = {
+  'Bug': Bug, 'Shield': Shield, 'Activity': Activity, 'Terminal': Terminal,
+  'Fingerprint': Fingerprint, 'Crosshair': Crosshair, 'Globe': Globe, 'Radio': Radio, 'ScanEye': ScanEye
+};
+const AuthorIcon = data.icon in IconMap ? IconMap[data.icon] : Terminal;
+
+const isRed = data.team === 'Red Team';
+const accentBorder = isRed ? 'border-red-500' : 'border-blue-500';
+const accentText = isRed ? 'text-red-500' : 'text-blue-400';
+const accentBg = isRed ? 'bg-red-950/20' : 'bg-blue-950/20';
+const accentShadow = isRed
+  ? 'shadow-[0_0_40px_-8px_rgba(220,38,38,0.25)]'
+  : 'shadow-[0_0_40px_-8px_rgba(59,130,246,0.25)]';
+---
+
+<html lang="en">
+<head>
+  <title>{data.name} | 0xD3lta Research</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="/delta-favicon.png" />
+  <link rel="alternate" type="application/rss+xml" title="0xD3lta Research" href="/rss.xml" />
+  <!-- SEO -->
+  <meta name="description" content={`${data.name} — ${data.role} at 0xD3lta Research. ${data.team} operator.`} />
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="0xD3lta Research" />
+  <meta property="og:title" content={`${data.name} | 0xD3lta Research`} />
+  <meta property="og:description" content={`${data.name} — ${data.role} at 0xD3lta Research.`} />
+  <meta property="og:url" content={`https://0xdelta.org/team/${member.id}`} />
+  <meta property="og:image" content="https://0xdelta.org/delta-favicon.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={`${data.name} | 0xD3lta Research`} />
+  <meta name="twitter:description" content={`${data.name} — ${data.role} at 0xD3lta Research.`} />
+</head>
+
+<body class="min-h-screen bg-[#050505] text-neutral-400 font-mono">
+
+  <Header client:idle />
+
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Voltar -->
+    <div class="mb-8">
+      <a href="/#team" class="group inline-flex items-center gap-2 text-xs font-bold text-neutral-500 hover:text-white transition-colors uppercase tracking-widest border-b border-transparent hover:border-white pb-1">
+        <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
+        Back_To_Operators
+      </a>
+    </div>
+
+    <!-- Profile Card -->
+    <div class={`border ${accentBorder} ${accentBg} ${accentShadow} p-8 md:p-12 mb-16 relative overflow-hidden`}>
+      <!-- Crosshair decorativo -->
+      <div class={`absolute top-4 right-4 ${accentText} opacity-20`}>
+        <Crosshair className="w-16 h-16" />
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8 items-start md:items-center relative z-10">
+
+        <!-- Ícone -->
+        <div class={`w-24 h-24 border ${accentBorder} ${accentBg} flex items-center justify-center shrink-0`}>
+          <AuthorIcon className={`w-10 h-10 ${accentText}`} />
+        </div>
+
+        <!-- Info -->
+        <div class="flex-1">
+          <div class="flex flex-wrap items-center gap-3 mb-2">
+            <span class={`px-2 py-0.5 text-[10px] font-bold uppercase border ${isRed ? 'border-red-900 text-red-500 bg-red-950/10' : 'border-blue-900 text-blue-500 bg-blue-950/10'}`}>
+              {data.team}
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] text-neutral-500 border border-neutral-800 px-2 py-0.5 bg-neutral-950">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.8)] animate-pulse"></span>
+              {data.status}
+            </span>
+
+            {data.badge && (
+              <span class={`group/badge relative inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold uppercase border cursor-help ${isRed ? 'border-red-900 text-red-500 bg-red-950/10' : 'border-blue-900 text-blue-400 bg-blue-950/10'}`}>
+                <Bug className="w-3 h-3" />
+                {data.badge.label}
+                <span class="pointer-events-none absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap border border-neutral-800 bg-neutral-950 px-3 py-1.5 text-[10px] font-normal normal-case tracking-normal text-neutral-300 opacity-0 shadow-lg shadow-black/50 transition-opacity duration-200 group-hover/badge:opacity-100 z-30">
+                  {data.badge.tooltip}
+                </span>
+              </span>
+            )}
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-1">
+            {data.name}
+          </h1>
+          <p class={`text-sm font-bold uppercase tracking-widest mb-3 ${accentText}`}>
+            {data.role}
+          </p>
+
+          {data.bio && (
+            <p class="text-sm text-neutral-400 leading-relaxed mb-5 max-w-xl border-l-2 border-neutral-800 pl-4">
+              {data.bio}
+            </p>
+          )}
+
+          <!-- Skills -->
+          <div class="flex flex-wrap gap-2 mb-6">
+            {data.skills.map((skill: string) => (
+              <span class={`text-[10px] font-mono border px-2 py-1 uppercase ${isRed ? 'border-red-900 text-red-400 bg-red-950/20' : 'border-blue-900 text-blue-400 bg-blue-950/20'}`}>
+                {skill}
+              </span>
+            ))}
+          </div>
+
+          <!-- Socials -->
+          <div class="flex gap-4">
+            {data.social?.github && (
+              <a href={data.social.github} target="_blank" rel="noopener noreferrer" class={`text-neutral-600 hover:${accentText} transition-colors`}>
+                <Github className="w-5 h-5" />
+              </a>
+            )}
+            {data.social?.linkedin && (
+              <a href={data.social.linkedin} target="_blank" rel="noopener noreferrer" class={`text-neutral-600 hover:${accentText} transition-colors`}>
+                <Linkedin className="w-5 h-5" />
+              </a>
+            )}
+            {data.social?.twitter && (
+              <a href={data.social.twitter} target="_blank" rel="noopener noreferrer" class={`text-neutral-600 hover:${accentText} transition-colors`}>
+                <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+            )}
+            {data.social?.website && (
+              <a href={data.social.website} target="_blank" rel="noopener noreferrer" class={`text-neutral-600 hover:${accentText} transition-colors`}>
+                <Globe className="w-5 h-5" />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <!-- Stat: posts -->
+        <div class="flex flex-col items-center text-center border border-neutral-800 px-8 py-6 bg-neutral-950">
+          <span class="text-4xl font-bold text-white font-mono">{posts.length}</span>
+          <span class="text-[9px] text-neutral-600 uppercase tracking-widest mt-1">Reports</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posts do autor -->
+    <div>
+      <div class="flex items-center justify-between mb-8 border-b border-neutral-800 pb-4">
+        <div>
+          <h2 class="text-xl font-bold text-white uppercase tracking-tight">Intelligence Reports</h2>
+          <p class="text-[10px] text-neutral-600 uppercase tracking-widest mt-1">// AUTHORED BY {data.name}</p>
+        </div>
+        <span class="text-[9px] font-mono text-neutral-600">TOTAL: <span class="text-white font-bold">{posts.length}</span></span>
+      </div>
+
+      {posts.length > 0 ? (
+        <LatestResearch client:visible posts={posts} variant="stealth" />
+      ) : (
+        <div class="py-24 text-center border border-dashed border-neutral-800 text-neutral-600 text-xs font-mono">
+          // NO_REPORTS_YET
+        </div>
+      )}
+    </div>
+
+  </main>
+
+  <Footer client:visible />
+</body>
+</html>

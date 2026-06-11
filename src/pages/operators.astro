@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import TeamProfiles from '../components/TeamProfiles.jsx';
+import '../styles/global.css';
+
+const rawTeamMembers = await getCollection('team');
+
+// Ordenação manual (mesma referência da Home)
+const teamOrder = [
+  "0x_OLYMPUS",
+  "SPECIEUNKN0WN_",
+  "VAMPIR3BLUES",
+  "SERROS404",
+  "ANKHCORP",
+  "E0B3",
+  "RWX_GHOST",
+];
+const sortByOrder = (a, b) => {
+  const ia = teamOrder.indexOf(a.data.name);
+  const ib = teamOrder.indexOf(b.data.name);
+  return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+};
+
+const redTeam = rawTeamMembers.filter((m) => m.data.team === 'Red Team').sort(sortByOrder);
+const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team').sort(sortByOrder);
+---
+
+<html lang="en">
+  <head>
+    <title>Operators | 0xD3lta Research</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/delta-favicon.png" />
+    <link rel="alternate" type="application/rss+xml" title="0xD3lta Research" href="/rss.xml" />
+    <!-- SEO -->
+    <meta name="description" content="0xD3lta Research operators — Red Team and Blue Team. Offensive and defensive cybersecurity researchers." />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="0xD3lta Research" />
+    <meta property="og:title" content="Operators | 0xD3lta Research" />
+    <meta property="og:description" content="Meet the Red Team and Blue Team operators behind 0xD3lta Research." />
+    <meta property="og:url" content="https://0xdelta.org/operators" />
+  </head>
+
+  <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
+
+    <Header client:idle />
+
+    <main class="container mx-auto px-4 py-24 min-h-screen">
+
+      <!-- Cabeçalho -->
+      <header class="mb-20 border-b border-neutral-800 pb-12">
+        <p class="text-xs font-bold text-neutral-600 mb-6 tracking-[0.2em] uppercase">
+          // UNIT_ROSTER
+        </p>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter leading-none uppercase">
+          OPERATORS
+        </h1>
+        <div class="max-w-2xl border-l-2 border-neutral-800 pl-6">
+          <p class="text-lg text-neutral-500 leading-relaxed">
+            Offensive and defensive divisions of 0xD3lta Research. Click any operator to open their profile, social channels, and published research.
+          </p>
+        </div>
+      </header>
+
+      <!-- BLUE TEAM -->
+      {blueTeam.length > 0 && (
+        <section class="mb-24">
+          <div class="flex items-center gap-4 mb-10">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
+            <h2 class="text-2xl font-bold text-white uppercase tracking-tight">Blue Team</h2>
+            <span class="text-[10px] font-bold text-blue-400/70 tracking-widest uppercase">// DEFENSIVE</span>
+            <div class="flex-1 h-[1px] bg-gradient-to-r from-blue-900/50 to-transparent"></div>
+          </div>
+          <TeamProfiles client:visible members={blueTeam} />
+        </section>
+      )}
+
+      <!-- RED TEAM -->
+      {redTeam.length > 0 && (
+        <section>
+          <div class="flex items-center gap-4 mb-10">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]"></span>
+            <h2 class="text-2xl font-bold text-white uppercase tracking-tight">Red Team</h2>
+            <span class="text-[10px] font-bold text-red-500/70 tracking-widest uppercase">// OFFENSIVE</span>
+            <div class="flex-1 h-[1px] bg-gradient-to-r from-red-900/50 to-transparent"></div>
+          </div>
+          <TeamProfiles client:visible members={redTeam} />
+        </section>
+      )}
+
+    </main>
+
+    <Footer client:visible />
+  </body>
+</html>
