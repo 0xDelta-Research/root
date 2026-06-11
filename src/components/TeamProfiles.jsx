@@ -93,7 +93,7 @@ const TeamProfiles = (props) => {
               </div>
 
               {/* PERFIL: Ícone + Nome */}
-              <div className="flex flex-col items-center text-center gap-5 mb-8 min-h-[140px] justify-center">
+              <div className="flex flex-col items-center text-center gap-5 mb-4 min-h-[140px] justify-center">
                 {/* Ícone MAIOR */}
                 <div className={`
                     w-16 h-16 border border-neutral-700 bg-neutral-950 flex items-center justify-center 
@@ -110,19 +110,19 @@ const TeamProfiles = (props) => {
                     <p className={`text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] transition-colors ${styles.textHover} truncate`}>
                         {member.data.role}
                     </p>
-
-                    {/* BADGE minimalista: ícone de inseto na cor do card + tooltip no hover */}
-                    {member.data.badge && (
-                      <div className="mt-2.5 flex justify-center">
-                        <span className="relative group/badge z-20 inline-flex cursor-help">
-                          <Bug className={`w-4 h-4 ${accentText} transition-colors duration-200 group-hover/badge:text-neutral-600`} />
-                          <span className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap border ${accentBorderSoft} bg-neutral-950 px-3 py-1.5 text-[10px] uppercase tracking-widest text-neutral-300 opacity-0 shadow-lg shadow-black/50 transition-opacity duration-200 group-hover/badge:opacity-100 z-30`}>
-                            {member.data.badge.tooltip}
-                          </span>
-                        </span>
-                      </div>
-                    )}
                 </div>
+              </div>
+
+              {/* BADGE: slot de altura fixa em TODOS os cards (vazio sem badge) p/ manter alinhamento */}
+              <div className="h-6 flex items-center justify-center mb-4">
+                {member.data.badge && (
+                  <span className="relative group/badge z-20 inline-flex cursor-help">
+                    <Bug className={`w-4 h-4 ${accentText} transition-colors duration-200 group-hover/badge:text-neutral-600`} />
+                    <span className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap border ${accentBorderSoft} bg-neutral-950 px-3 py-1.5 text-[10px] uppercase tracking-widest text-neutral-300 opacity-0 shadow-lg shadow-black/50 transition-opacity duration-200 group-hover/badge:opacity-100 z-30`}>
+                      {member.data.badge.tooltip}
+                    </span>
+                  </span>
+                )}
               </div>
 
               {/* LINKS SOCIAIS */}
@@ -140,6 +140,11 @@ const TeamProfiles = (props) => {
                 {member.data.social?.twitter && (
                     <a href={member.data.social.twitter} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <XIcon className="w-[18px] h-[18px]" />
+                    </a>
+                )}
+                {member.data.social?.website && (
+                    <a href={member.data.social.website} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
+                        <Globe className="w-5 h-5" />
                     </a>
                 )}
               </div>
