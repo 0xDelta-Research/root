@@ -1,6 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Shield, Activity, Bug, Github, Linkedin, Twitter, Globe, Fingerprint, Crosshair, Radio, ScanEye } from 'lucide-react';
+import { Terminal, Shield, Activity, Bug, Github, Linkedin, Globe, Fingerprint, Crosshair, Radio, ScanEye } from 'lucide-react';
+
+const XIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 
 const iconMap = {
   'Bug': Bug,
@@ -47,6 +53,8 @@ const TeamProfiles = (props) => {
           };
 
           const styles = isRed ? redStyles : blueStyles;
+          const accentText = isRed ? 'text-red-500' : 'text-blue-400';
+          const accentBorderSoft = isRed ? 'border-red-500/30' : 'border-blue-500/30';
 
           return (
             <motion.div
@@ -63,6 +71,13 @@ const TeamProfiles = (props) => {
                 ${styles.containerHover}
               `}
             >
+              {/* Link esticado: clicar em qualquer área do card abre o perfil */}
+              <a
+                href={`/team/${member.id}`}
+                aria-label={`Open ${member.data.name} profile`}
+                className="absolute inset-0 z-10 cursor-pointer"
+              ></a>
+
               {/* HEADER: ID + Status */}
               <div className={`flex justify-between items-center mb-8 border-b border-neutral-800 pb-3 transition-colors ${styles.borderHover}`}>
                 <span className={`text-[10px] font-mono text-neutral-600 uppercase tracking-widest transition-colors ${styles.textHover}`}>
@@ -95,11 +110,23 @@ const TeamProfiles = (props) => {
                     <p className={`text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] transition-colors ${styles.textHover} truncate`}>
                         {member.data.role}
                     </p>
+
+                    {/* BADGE minimalista: ícone de inseto na cor do card + tooltip no hover */}
+                    {member.data.badge && (
+                      <div className="mt-2.5 flex justify-center">
+                        <span className="relative group/badge z-20 inline-flex cursor-help">
+                          <Bug className={`w-4 h-4 ${accentText} transition-colors duration-200 group-hover/badge:text-neutral-600`} />
+                          <span className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap border ${accentBorderSoft} bg-neutral-950 px-3 py-1.5 text-[10px] uppercase tracking-widest text-neutral-300 opacity-0 shadow-lg shadow-black/50 transition-opacity duration-200 group-hover/badge:opacity-100 z-30`}>
+                            {member.data.badge.tooltip}
+                          </span>
+                        </span>
+                      </div>
+                    )}
                 </div>
               </div>
 
               {/* LINKS SOCIAIS */}
-              <div className="flex justify-center gap-5 h-10 items-center mb-6">
+              <div className="relative z-20 flex justify-center gap-5 h-10 items-center mb-6">
                 {member.data.social?.github && (
                     <a href={member.data.social.github} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <Github className="w-5 h-5" />
@@ -108,6 +135,11 @@ const TeamProfiles = (props) => {
                 {member.data.social?.linkedin && (
                     <a href={member.data.social.linkedin} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <Linkedin className="w-5 h-5" />
+                    </a>
+                )}
+                {member.data.social?.twitter && (
+                    <a href={member.data.social.twitter} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
+                        <XIcon className="w-[18px] h-[18px]" />
                     </a>
                 )}
               </div>

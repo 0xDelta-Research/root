@@ -13,7 +13,7 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: {
-      langs: [yaraGrammar],
+      langs: [{ ...yaraGrammar, name: 'yara', aliases: ['yara'] }],
     },
   },
   integrations: [

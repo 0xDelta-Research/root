@@ -62,7 +62,7 @@ const GlitchDigit = () => {
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/blog', label: 'Research' },
-  { href: '/#team', label: 'Operators' },
+  { href: '/operators', label: 'Operators' },
   { href: '/contact', label: 'Contact' },
   { href: '/donate', label: 'Support' },
 ];

@@ -41,7 +41,6 @@ if it didn't, it's not here.
 ```
 github   → github.com/0xDelta-Research
 linkedin → linkedin.com/company/0xdeltaresearch
-discord  → discord.gg/SUBSTITUA_AQUI
 contact  → root@0xdelta.org
 ```
 
