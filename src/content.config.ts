@@ -59,15 +59,12 @@ const team = defineCollection({
     status: z.string().default('ONLINE'),
     bio: z.string().optional(),
     skills: z.array(z.string()),
-    badge: z.object({
-      label: z.string(),
-      tooltip: z.string(),
-    }).optional(),
     social: z.object({
       github: z.string().url().optional(),
       linkedin: z.string().url().optional(),
       twitter: z.string().url().optional(),
       website: z.string().url().optional(),
+      discord: z.string().optional(),
     }).optional(),
   })
 });
