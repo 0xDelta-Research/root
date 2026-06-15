@@ -10,4 +10,5 @@ skills: ["Web Exploitation", "OSINT", "C2 Infra"]
 social:
   github: "https://github.com/Ankhcorp"
   linkedin: "https://linkedin.com/in/andre-rocha-"
+  twitter: "https://x.com/ankh_corp"
 ---
