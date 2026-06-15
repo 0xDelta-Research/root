@@ -9,5 +9,5 @@ bio: "Tracks APT campaigns, dissects malware, and connects the dots between thre
 skills: ["Reverse Engineering", "APT Tracking", "Malware Analysis"]
 social:
   linkedin: "https://www.linkedin.com/in/moises-cerqueira/"
-  discord: "moises-cerqueira"
+  twitter: "https://x.com/0x_Olympus"
 ---
