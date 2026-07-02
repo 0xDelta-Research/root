@@ -5,7 +5,7 @@ team: "Blue Team"
 specialty: "Intel & Defense"
 icon: "Shield"
 status: "ONLINE"
-bio: "Leads the SOC. hardening, data privacy, and security operations. Makes sure the defensive side doesn't sleep."
+bio: "Leads the SOC. System hardening, data privacy, and defensive security operations."
 skills: ["Hardening", "Data Privacy", "SecOps"]
 social:
   linkedin: "https://www.linkedin.com/in/fabiotsouza/"

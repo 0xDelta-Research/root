@@ -5,7 +5,7 @@ team: "Blue Team"
 specialty: "APT Analysis"
 icon: "Bug"
 status: "ONLINE"
-bio: "Tracks APT campaigns, dissects malware, and connects the dots between threat actors and their tooling. If there's a pattern, he finds it."
+bio: "Leads threat research. Reverse engineering, APT campaign tracking, and malware analysis, mapping threat-actor tooling and infrastructure."
 skills: ["Reverse Engineering", "APT Tracking", "Malware Analysis"]
 social:
   linkedin: "https://www.linkedin.com/in/moises-cerqueira/"
