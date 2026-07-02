@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Bug, Shield, User, AlertTriangle } from 'lucide-react';
+import { ArrowRight, Bug, Shield, User, Users, AlertTriangle } from 'lucide-react';
 
 /**
  * AQUI ESTÁ A CORREÇÃO DO ERRO:
@@ -76,9 +76,22 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                   </span>
                </div>
               
-               <span className="text-[10px] font-mono text-neutral-700 group-hover:text-neutral-500 transition-colors">
-                  {new Date(post.data.pubDate).toISOString().split('T')[0]}
-               </span>
+               <div className="flex flex-col items-end gap-2">
+                  <span className="text-[10px] font-mono text-neutral-700 group-hover:text-neutral-500 transition-colors">
+                     {new Date(post.data.pubDate).toISOString().split('T')[0]}
+                  </span>
+
+                  {/* Badge de Colaboração (abaixo da data) */}
+                  {post.data.collaborators?.length > 0 && (
+                     <span
+                        title={`Collaboration with ${post.data.collaborators.join(', ')}`}
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border border-neutral-700 text-neutral-500 bg-neutral-950 group-hover:text-neutral-300 group-hover:border-neutral-600 transition-colors"
+                     >
+                        <Users className="w-2.5 h-2.5" />
+                        Collab{post.data.collaborators.length > 1 ? ` +${post.data.collaborators.length}` : ''}
+                     </span>
+                  )}
+               </div>
             </div>
 
             {/* Conteúdo */}
@@ -99,7 +112,7 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                 <div className="flex items-center gap-2">
                     <div className={`
                         w-8 h-8 rounded border flex items-center justify-center transition-colors duration-300
-                        bg-neutral-950 border-neutral-800 
+                        bg-neutral-950 border-neutral-800
                         ${isRed ? 'group-hover:border-red-900 group-hover:bg-red-950/20' : 'group-hover:border-blue-900 group-hover:bg-blue-950/20'}
                     `}>
                         <User className={`w-3 h-3 text-neutral-600 ${teamTextHover}`} />
