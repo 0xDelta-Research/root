@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Header from '../../components/Header.jsx';
 import Footer from '../../components/Footer.jsx';
+import LatestResearch from '../../components/LatestResearch.jsx';
 import { User, Users, Calendar, Clock, ArrowLeft, ArrowRight, Terminal, FileText, Share2, AlertTriangle, Bug, Shield, Activity, Github, Linkedin, Globe, Twitter, Fingerprint, Crosshair, Radio, ScanEye, ExternalLink } from 'lucide-react';
 import '../../styles/global.css';
 
@@ -53,6 +54,29 @@ const collaboratorProfiles = (entry.data.collaborators ?? [])
   .filter((m): m is CollectionEntry<'team'> => Boolean(m));
 const hasCollab = (entry.data.collaborators ?? []).length > 0;
 
+// --- RELATED REPORTS ---
+// Relevância: mesma categoria (forte) > tags em comum > mesmo time/autor.
+const allPosts = await getCollection('blog');
+const currentTags = new Set((entry.data.tags ?? []).map(t => t.toLowerCase()));
+const neighborIds = new Set([prevPost?.id, nextPost?.id].filter(Boolean));
+const relatedPosts = allPosts
+  .filter(p => p.id !== entry.id && !neighborIds.has(p.id))
+  .map(p => {
+    let score = 0;
+    if (p.data.category === entry.data.category) score += 3;
+    if (p.data.team === entry.data.team) score += 1;
+    if (p.data.author.toLowerCase() === entry.data.author.toLowerCase()) score += 1;
+    score += (p.data.tags ?? []).filter(t => currentTags.has(t.toLowerCase())).length;
+    return { p, score };
+  })
+  .filter(x => x.score > 0)
+  .sort((a, b) => b.score - a.score || b.p.data.pubDate.valueOf() - a.p.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map(x => x.p);
+
+// --- OG IMAGE (gerada por post no build) ---
+const ogImage = entry.data.image ?? new URL(`/og/${entry.id}.png`, Astro.site).href;
+
 // --- LÓGICA DO ÍNDICE ---
 interface HeadingNode {
   depth: number;
@@ -88,12 +112,14 @@ headings.forEach((h: any) => {
     <meta property="og:title" content={entry.data.title} />
     <meta property="og:description" content={entry.data.description} />
     <meta property="og:url" content={`https://0xdelta.org/blog/${(entry as any).slug || entry.id}`} />
-    <meta property="og:image" content={entry.data.image ?? 'https://0xdelta.org/delta-favicon.png'} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={entry.data.title} />
     <meta name="twitter:description" content={entry.data.description} />
-    <meta name="twitter:image" content={entry.data.image ?? 'https://0xdelta.org/delta-favicon.png'} />
+    <meta name="twitter:image" content={ogImage} />
 </head>
 
 <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono selection:bg-neutral-800 selection:text-white">
@@ -370,6 +396,17 @@ headings.forEach((h: any) => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                )}
+
+                {/* Related Reports */}
+                {relatedPosts.length > 0 && (
+                    <div class="border-t border-neutral-800 pt-8 mt-12">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-bold text-white uppercase tracking-tight">Related Reports</h2>
+                            <span class="text-[9px] font-mono text-neutral-600">// SIMILAR_INTEL</span>
+                        </div>
+                        <LatestResearch client:visible posts={relatedPosts} variant="stealth" />
                     </div>
                 )}
 
