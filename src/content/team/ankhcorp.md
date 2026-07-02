@@ -5,7 +5,7 @@ team: "Red Team"
 specialty: "Web Pentest"
 icon: "Globe"
 status: "ONLINE"
-bio: "Web exploitation, OSINT, and C2 infrastructure. If it's reachable from the internet, it's a target."
+bio: "Red team operations. Web application exploitation, OSINT, and command-and-control infrastructure."
 skills: ["Web Exploitation", "OSINT", "C2 Infra"]
 social:
   github: "https://github.com/Ankhcorp"

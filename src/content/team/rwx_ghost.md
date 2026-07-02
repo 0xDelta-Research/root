@@ -5,7 +5,7 @@ team: "Red Team"
 specialty: "Web, API & Mobile"
 icon: "Fingerprint"
 status: "ONLINE"
-bio: "Bug hunter and pentester across web, API and mobile. Tears apart malicious .APKs and reads web code like a map — sometimes from nothing but a phone. Validated reports and six figures earned in the wild."
+bio: "Web, API, and mobile security testing. Android APK analysis and application-layer vulnerability research."
 skills: ["Bug Bounty", "Mobile Security", "Web Pentest"]
 badge:
   label: "CTF & Bug Bounty"

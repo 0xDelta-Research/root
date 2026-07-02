@@ -5,7 +5,7 @@ team: "Red Team"
 specialty: "Web & API Pentest"
 icon: "Crosshair"
 status: "ONLINE"
-bio: "Web exploitation and API security. Finds what the scanner missed and documents exactly how deep it goes."
+bio: "Leads the red team. Web and API penetration testing, manual exploitation, and vulnerability reporting."
 skills: ["Bug Bounty", "Web Pentest", "API Security"]
 badge:
   label: "CTF & Bug Bounty"
