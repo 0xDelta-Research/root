@@ -19,12 +19,12 @@ export const { getStaticPaths, GET } = await OGImageRoute({
     return {
       title: page.title,
       description: meta,
-      // Fundo com o grid tático do site (1200x630).
-      bgImage: { path: './src/assets/og/bg.png', fit: 'cover' },
-      // Faixa de marca (logo Δ + "0xDelta Research") no topo.
-      logo: { path: './src/assets/og/brand.png', size: [460] },
-      // Borda lateral na cor do time (Red/Blue).
-      border: { color: accent, width: 12, side: 'inline-start' },
+      // Fundo com grid + tag do time (Blue/Red) no canto.
+      bgImage: { path: isRed ? './src/assets/og/bg-red.png' : './src/assets/og/bg-blue.png', fit: 'cover' },
+      // Faixa de marca (logo real + "0xDelta Research"), maior.
+      logo: { path: './src/assets/og/brand.png', size: [600] },
+      // Barra lateral (bem visível) na cor do time.
+      border: { color: accent, width: 24, side: 'inline-start' },
       padding: 70,
       font: {
         title: { color: [237, 237, 237], size: 60, lineHeight: 1.15 },
