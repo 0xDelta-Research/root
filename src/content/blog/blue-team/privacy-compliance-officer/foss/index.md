@@ -2,7 +2,7 @@
 title: "FOSS as a Security Primitive: Why Open Source Is Structurally Superior for Privacy, Integrity, and Trust"
 description: "A technical analysis of FOSS as a foundational security control, examining verifiability, attack surface reduction, community auditing, and data sovereignty in contrast to the trust-based failures of proprietary software."
 risk: "INFO"
-pubDate: 2026-01-08
+pubDate: 2026-01-11
 author: "SPECIEUNKN0WN_"
 team: "Blue Team"
 category: "Privacy Compliance Officer"

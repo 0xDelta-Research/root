@@ -2,7 +2,7 @@
 title: "Active Phishing & PIX Fraud Operation Impersonating Brazilian DETRAN"
 description: "Impersonation of Brazilian DETRAN (Department of Motor Vehicles)."
 risk: "CRITICAL"
-pubDate: 2025-12-21
+pubDate: 2026-01-04
 author: "0x_OLYMPUS"
 team: "Blue Team"
 category: "Threat Hunting"
