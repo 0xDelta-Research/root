@@ -2,7 +2,7 @@
 title: "Operational Security Analysis: Mass Surveillance Mitigation via Mullvad VPN"
 description: "SecOps analysis of Mullvad's anonymity model — identity decoupling, RAM-only infrastructure, System Transparency (stboot), and zero-retention architecture."
 risk: "INFO"
-pubDate: 2026-06-15
+pubDate: 2026-06-30
 author: "SPECIEUNKN0WN_"
 team: "Blue Team"
 category: "Privacy Compliance Officer"
