@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Bug, Shield, User, AlertTriangle } from 'lucide-react';
+import { ArrowRight, Bug, Shield, User, Users, AlertTriangle } from 'lucide-react';
 
 /**
  * AQUI ESTÁ A CORREÇÃO DO ERRO:
@@ -99,7 +99,7 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                 <div className="flex items-center gap-2">
                     <div className={`
                         w-8 h-8 rounded border flex items-center justify-center transition-colors duration-300
-                        bg-neutral-950 border-neutral-800 
+                        bg-neutral-950 border-neutral-800
                         ${isRed ? 'group-hover:border-red-900 group-hover:bg-red-950/20' : 'group-hover:border-blue-900 group-hover:bg-blue-950/20'}
                     `}>
                         <User className={`w-3 h-3 text-neutral-600 ${teamTextHover}`} />
@@ -107,6 +107,17 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                     <span className={`text-xs font-mono font-bold text-neutral-600 ${teamTextHover}`}>
                         {post.data.author}
                     </span>
+
+                    {/* Badge de Colaboração */}
+                    {post.data.collaborators?.length > 0 && (
+                        <span
+                            title={`Collaboration with ${post.data.collaborators.join(', ')}`}
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border border-neutral-700 text-neutral-500 bg-neutral-950 group-hover:text-neutral-300 group-hover:border-neutral-600 transition-colors"
+                        >
+                            <Users className="w-2.5 h-2.5" />
+                            Collab{post.data.collaborators.length > 1 ? ` +${post.data.collaborators.length}` : ''}
+                        </span>
+                    )}
                 </div>
 
                 <ArrowRight className={`w-4 h-4 transition-all group-hover:translate-x-1 text-neutral-700 ${teamTextHover}`} />

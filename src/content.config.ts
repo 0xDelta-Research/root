@@ -27,6 +27,7 @@ const blog = defineCollection({
       'CVEs'
     ]),
     tags: z.array(z.string()).optional(),
+    collaborators: z.array(z.string()).optional(),
     image: z.string().optional(),
     repoLink: z.string().url().optional(),
     risk: z.enum(['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFO']).optional(),

@@ -13,15 +13,21 @@ export async function getStaticPaths() {
   const teamMembers = await getCollection('team');
   const blogPosts = await getCollection('blog');
 
-  return teamMembers.map((member) => ({
-    params: { id: member.id },
-    props: {
-      member,
-      posts: blogPosts
-        .filter(p => p.data.author.toLowerCase() === member.data.name.toLowerCase())
-        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-    },
-  }));
+  return teamMembers.map((member) => {
+    const nick = member.data.name.toLowerCase();
+    return {
+      params: { id: member.id },
+      props: {
+        member,
+        posts: blogPosts
+          .filter(p =>
+            p.data.author.toLowerCase() === nick ||
+            (p.data.collaborators ?? []).some(c => c.toLowerCase() === nick)
+          )
+          .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+      },
+    };
+  });
 }
 
 interface Props {
