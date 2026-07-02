@@ -72,7 +72,7 @@ and push curated intel to our internal channels:
 | Operator | Division | Focus |
 |----------|----------|-------|
 | **[0x_OLYMPUS](https://www.linkedin.com/in/moises-cerqueira/)** | 🔵 Threat Research Lead | APT tracking, malware analysis, reverse engineering |
-| **[SPECIEUNKN0WN_](https://github.com/stnert)** | 🔵 SOC Lead | Mobile security, data privacy, security operations |
+| **[SPECIEUNKN0WN_](https://github.com/stnert)** | 🔵 SOC Lead | Hardening, Data Privacy, Security Operations |
 | **[VAMPIR3BLUES](https://github.com/vampir3blues)** | 🔵 Threat Research | Cyber threat intelligence, threat hunting |
 | **[SERROS404](https://github.com/serros404)** | 🔴 Red Team Lead | Web & API exploitation, bug bounty |
 | **[ANKHCORP](https://github.com/Ankhcorp)** | 🔴 Red Team | Web exploitation, OSINT, C2 infrastructure |
