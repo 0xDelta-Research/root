@@ -76,9 +76,22 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                   </span>
                </div>
               
-               <span className="text-[10px] font-mono text-neutral-700 group-hover:text-neutral-500 transition-colors">
-                  {new Date(post.data.pubDate).toISOString().split('T')[0]}
-               </span>
+               <div className="flex flex-col items-end gap-2">
+                  <span className="text-[10px] font-mono text-neutral-700 group-hover:text-neutral-500 transition-colors">
+                     {new Date(post.data.pubDate).toISOString().split('T')[0]}
+                  </span>
+
+                  {/* Badge de Colaboração (abaixo da data) */}
+                  {post.data.collaborators?.length > 0 && (
+                     <span
+                        title={`Collaboration with ${post.data.collaborators.join(', ')}`}
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border border-neutral-700 text-neutral-500 bg-neutral-950 group-hover:text-neutral-300 group-hover:border-neutral-600 transition-colors"
+                     >
+                        <Users className="w-2.5 h-2.5" />
+                        Collab{post.data.collaborators.length > 1 ? ` +${post.data.collaborators.length}` : ''}
+                     </span>
+                  )}
+               </div>
             </div>
 
             {/* Conteúdo */}
@@ -107,17 +120,6 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
                     <span className={`text-xs font-mono font-bold text-neutral-600 ${teamTextHover}`}>
                         {post.data.author}
                     </span>
-
-                    {/* Badge de Colaboração */}
-                    {post.data.collaborators?.length > 0 && (
-                        <span
-                            title={`Collaboration with ${post.data.collaborators.join(', ')}`}
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border border-neutral-700 text-neutral-500 bg-neutral-950 group-hover:text-neutral-300 group-hover:border-neutral-600 transition-colors"
-                        >
-                            <Users className="w-2.5 h-2.5" />
-                            Collab{post.data.collaborators.length > 1 ? ` +${post.data.collaborators.length}` : ''}
-                        </span>
-                    )}
                 </div>
 
                 <ArrowRight className={`w-4 h-4 transition-all group-hover:translate-x-1 text-neutral-700 ${teamTextHover}`} />

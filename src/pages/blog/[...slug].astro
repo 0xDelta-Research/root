@@ -234,7 +234,7 @@ headings.forEach((h: any) => {
                         {entry.data.title}
                     </h1>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs font-mono bg-neutral-900/30 p-4 border border-neutral-800">
+                    <div class={`grid grid-cols-2 ${hasCollab ? 'md:grid-cols-5' : 'md:grid-cols-4'} gap-6 text-xs font-mono bg-neutral-900/30 p-4 border border-neutral-800`}>
                         <div>
                             <span class="text-neutral-600 block mb-1 uppercase tracking-wider">Operator</span>
                             <span class="text-white font-bold flex items-center gap-2">
@@ -259,6 +259,22 @@ headings.forEach((h: any) => {
                                 <FileText className="w-3 h-3" /> #{refId}
                             </span>
                         </div>
+                        {hasCollab && (
+                            <div>
+                                <span class="text-neutral-600 block mb-1 uppercase tracking-wider">Collab</span>
+                                <span class="text-neutral-300 flex items-center gap-2 flex-wrap">
+                                    <Users className="w-3 h-3 shrink-0" />
+                                    {collaboratorProfiles.length > 0
+                                        ? collaboratorProfiles.map((c) => (
+                                            <a href={`/team/${c.id}`} class="font-bold text-neutral-300 hover:text-white underline decoration-neutral-700 hover:decoration-white underline-offset-4 transition-colors">
+                                                {c.data.name}
+                                            </a>
+                                          ))
+                                        : <span>{entry.data.collaborators?.join(', ')}</span>
+                                    }
+                                </span>
+                            </div>
+                        )}
                     </div>
                 </header>
 
