@@ -15,11 +15,10 @@ const rawTeamMembers = await getCollection('team');
 const teamOrder = [
   "0x_OLYMPUS",
   "SPECIEUNKN0WN_",
-  "VAMPIR3BLUES",
+  "MENSVR",
   "SERROS404",
   "ANKHCORP",
-  "E0B3",
-  "RWX_GHOST"
+  "E0B3"
 ];
 const teamMembers = rawTeamMembers.sort((a, b) => {
   const indexA = teamOrder.indexOf(a.data.name);
