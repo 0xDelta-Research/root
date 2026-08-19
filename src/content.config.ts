@@ -41,8 +41,9 @@ const team = defineCollection({
   
   schema: z.object({
     name: z.string(),
+    code: z.string().optional(),
     role: z.string(),
-    team: z.enum(['Red Team', 'Blue Team']).default('Blue Team'),
+    team: z.enum(['Red Team', 'Blue Team', 'Purple Team']).default('Blue Team'),
     specialty: z.string(),
     
     icon: z.enum([

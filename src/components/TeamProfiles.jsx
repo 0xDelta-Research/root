@@ -81,7 +81,7 @@ const TeamProfiles = (props) => {
               {/* HEADER: ID + Status */}
               <div className={`flex justify-between items-center mb-8 border-b border-neutral-800 pb-3 transition-colors ${styles.borderHover}`}>
                 <span className={`text-[10px] font-mono text-neutral-600 uppercase tracking-widest transition-colors ${styles.textHover}`}>
-                  ID: {member.data.name.substring(0, 3).toUpperCase()}_0{index + 1}
+                  ID: {member.data.code || `${member.data.name.substring(0, 3).toUpperCase()}_0${index + 1}`}
                 </span>
                 
                 <div className="flex items-center gap-2">

@@ -3,7 +3,7 @@ title: "Threat Actor Profile: Midia22"
 description: "A investigation of Midia22, a Brazilian Initial Access Broker operating across government systems and Telegram cybercrime channels."
 risk: "INFO"
 pubDate: 2026-01-06
-author: "VAMPIR3BLUES"
+author: "MENSVR"
 team: "Blue Team"
 category: "Threat Hunting"
 tags: ["Threat Actor", "Initial Access Broker", "Threat Group", "OSINT", "Cybercrime"]

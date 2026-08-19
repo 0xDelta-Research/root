@@ -11,11 +11,10 @@ const rawTeamMembers = await getCollection('team');
 const teamOrder = [
   "0x_OLYMPUS",
   "SPECIEUNKN0WN_",
-  "VAMPIR3BLUES",
+  "MENSVR",
   "SERROS404",
   "ANKHCORP",
   "E0B3",
-  "RWX_GHOST",
 ];
 const sortByOrder = (a, b) => {
   const ia = teamOrder.indexOf(a.data.name);
@@ -24,7 +23,7 @@ const sortByOrder = (a, b) => {
 };
 
 const redTeam = rawTeamMembers.filter((m) => m.data.team === 'Red Team').sort(sortByOrder);
-const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team').sort(sortByOrder);
+const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team' || m.data.team === 'Purple Team').sort(sortByOrder);
 ---
 
 <html lang="en">

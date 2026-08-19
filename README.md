@@ -52,7 +52,7 @@ Cyber Threat Intelligence · OSINT · Privacy & Compliance
 | [Critical 10.0 — Full BI Infrastructure Compromise](https://0xdelta.org/blog/red-team/web-security/critical-microstrategy-default-creds/) | Web Security | SERROS404 |
 | [TheGentlemen Ransomware — Threat Overview](https://0xdelta.org/blog/blue-team/cyber-threat-intelligence/thegentlemen-ransomware-overview/) | Threat Intel | ANKHCORP |
 | [Critical IDOR in a PIX Payment Gateway](https://0xdelta.org/blog/blue-team/cyber-threat-intelligence/pix-gateway-idor/) | Threat Intel | 0x_OLYMPUS |
-| [Threat Actor Profile: Midia22](https://0xdelta.org/blog/blue-team/threat-hunting/midia22/) | Threat Hunting | VAMPIR3BLUES |
+| [Threat Actor Profile: Midia22](https://0xdelta.org/blog/blue-team/threat-hunting/midia22/) | Threat Hunting | MENSVR |
 
 > Full archive → **[0xdelta.org/blog](https://0xdelta.org/blog)**
 
@@ -73,7 +73,7 @@ and push curated intel to our internal channels:
 |----------|----------|-------|
 | **[0x_OLYMPUS](https://www.linkedin.com/in/moises-cerqueira/)** | 🔵 Threat Research Lead | APT tracking, malware analysis, reverse engineering |
 | **[SPECIEUNKN0WN_](https://github.com/stnert)** | 🔵 SOC Lead | Hardening, Data Privacy, Security Operations |
-| **[VAMPIR3BLUES](https://github.com/vampir3blues)** | 🔵 Threat Research | Cyber threat intelligence, threat hunting |
+| **[MENSVR](https://mensvr.com/)** | 🟣 Counter Adversary | Purple ops, threat hunting, malware analysis |
 | **[SERROS404](https://github.com/serros404)** | 🔴 Red Team Lead | Web & API exploitation, bug bounty |
 | **[ANKHCORP](https://github.com/Ankhcorp)** | 🔴 Red Team | Web exploitation, OSINT, C2 infrastructure |
 | **[E0B3](https://github.com/Hunter-scriptkiddie)** | 🔴 Red Team | Bug hunting, recon methodology, tooling |
