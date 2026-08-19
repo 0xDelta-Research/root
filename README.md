@@ -77,7 +77,6 @@ and push curated intel to our internal channels:
 | **[SERROS404](https://github.com/serros404)** | 🔴 Red Team Lead | Web & API exploitation, bug bounty |
 | **[ANKHCORP](https://github.com/Ankhcorp)** | 🔴 Red Team | Web exploitation, OSINT, C2 infrastructure |
 | **[E0B3](https://github.com/Hunter-scriptkiddie)** | 🔴 Red Team | Bug hunting, recon methodology, tooling |
-| **[RWX_GHOST](https://linkedin.com/in/rafael-henrique-cyber)** | 🔴 Red Team | Web, API & mobile bug hunting |
 
 ## Responsible Disclosure
 
