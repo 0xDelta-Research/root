@@ -65,7 +65,7 @@ while 1:
 ```
 > **⚠️ SECURITY NOTICE:** The payload displayed above has been partially obfuscated and truncated for safety and educational purposes. The complete, fully functional source code is available on our repository
 
-**[ACCESS FULL REPOSITORY ON GITHUB ->](https://github.com/serros404/whatsapp-pyz-reverseshell)**
+**[ACCESS FULL REPOSITORY ON GITHUB](https://github.com/serros404/whatsapp-pyz-reverseshell)**
 
 ## Phase 2: Weaponization (ZipApp Packaging)
 To transform the script into a disguised Python "executable", we use the zipapp module. This compresses the script into a single file that Windows automatically associates with the Python interpreter.
