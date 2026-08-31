@@ -58,17 +58,6 @@ Cyber Threat Intelligence · OSINT · Privacy & Compliance
 
 > Full archive → **[0xdelta.org/blog](https://0xdelta.org/blog)**
 
-## Automation & Intel Feeds
-
-The team runs a set of autonomous bots (GitHub Actions) that watch the threat landscape
-and push curated intel to our internal channels:
-
-- **CVE Watcher + EPSS** — high-severity vulnerabilities, scored by exploitation probability
-- **IOC Feed** — fresh indicators of compromise
-- **Malware Monitor** — emerging samples and families
-- **Ransomware Tracker** — active groups and victims
-- **News Bot** — relevant cybersecurity developments
-
 ## Operators
 
 | Operator | Division | Focus |
