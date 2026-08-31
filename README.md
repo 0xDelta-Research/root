@@ -47,6 +47,8 @@ Cyber Threat Intelligence · OSINT · Privacy & Compliance
 
 | Report | Division | Author |
 |--------|----------|--------|
+| [Dissecting IDOR — Hidden Resources Still Reachable Through the API](https://0xdelta.org/blog/red-team/web-security/dissecting-idor/) | Web Security | SERROS404 |
+| [ValleyRAT via Trojanized DingTalk Downloader](https://0xdelta.org/blog/blue-team/malware-analysis-reverse-engineering/valleyrat/) — NVIDIA DLL sideloading & process injection | Malware Analysis | 0x_OLYMPUS |
 | [UpCrypter Loader Delivering XWorm V5.6 RAT](https://0xdelta.org/blog/blue-team/malware-analysis-reverse-engineering/xworm-ucrypter-rat/) — full-chain analysis & config extraction | Malware Analysis | 0x_OLYMPUS |
 | [EvilSoul1337 — Stealer-as-a-Service](https://0xdelta.org/blog/blue-team/malware-analysis-reverse-engineering/evilsoul1337/) | Malware Analysis | 0x_OLYMPUS |
 | [Critical 10.0 — Full BI Infrastructure Compromise](https://0xdelta.org/blog/red-team/web-security/critical-microstrategy-default-creds/) | Web Security | SERROS404 |
