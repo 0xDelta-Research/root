@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: '0xD3lta Research',
+    title: '0xDelta Research',
     description: 'Offensive and defensive cybersecurity research — Red Team techniques, malware analysis, threat hunting, and more.',
     site: context.site!,
     items: posts.map(post => ({

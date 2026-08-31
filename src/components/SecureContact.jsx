@@ -116,7 +116,7 @@ DwgFYb7RTIZ4aib4ga8=
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-6 flex-1">
               <div>
                 <p className="text-[10px] text-neutral-500 uppercase tracking-[0.2em] mb-1">Professional Network</p>
-                <h3 className="text-base font-bold text-white font-mono mb-1">0xD3lta Research</h3>
+                <h3 className="text-base font-bold text-white font-mono mb-1">0xDelta Research</h3>
                 <p className="text-[10px] text-neutral-600 font-mono">// Updates, research highlights and team news</p>
               </div>
               <a
