@@ -54,5 +54,8 @@ jobs:
         env:
           DISCORD_TOKEN:       ${{ secrets.DISCORD_TOKEN }}
           RESEARCH_CHANNEL_ID: ${{ secrets.RESEARCH_CHANNEL_ID }}
+          # Vai por env em vez de ser interpolado direto no shell: assim um
+          # nome de arquivo malicioso nao consegue injetar comando.
+          NEW_REPORTS:         ${{ steps.detect.outputs.files }}
         run: |
-          echo "${{ steps.detect.outputs.files }}" | xargs python 0xdelta_announce_bot.py
+          echo "$NEW_REPORTS" | xargs python 0xdelta_announce_bot.py
