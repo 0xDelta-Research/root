@@ -1,6 +1,6 @@
 ---
 name: "SERROS404"
-role: "Web Security Operator"
+role: "Web & API Security Researcher"
 team: "Red Team"
 specialty: "Web & API Pentest"
 icon: "Crosshair"
