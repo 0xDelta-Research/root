@@ -1,11 +1,11 @@
 ---
 name: "SERROS404"
-role: "RED TEAM LEADER"
+role: "Web & API Security Researcher"
 team: "Red Team"
 specialty: "Web & API Pentest"
 icon: "Crosshair"
 status: "ONLINE"
-bio: "Leads the red team. Web and API penetration testing, manual exploitation, and vulnerability reporting."
+bio: "Web and API security testing. Manual exploitation, access control flaws, and coordinated vulnerability disclosure."
 skills: ["Bug Bounty", "Web Pentest", "API Security"]
 badge:
   label: "CTF & Bug Bounty"
