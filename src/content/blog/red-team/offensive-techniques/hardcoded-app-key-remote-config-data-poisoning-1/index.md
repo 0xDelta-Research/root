@@ -9,12 +9,6 @@ tags: ["Bug Bounty", "Mobile Security", "Reverse Engineering", "Hardcoded Creden
 risk: "HIGH"
 ---
 
-●SYSTEM_ONLINE
-
-**Declassified Report // mobile-security/offensive-techniques/hardcoded-telemetry-key**
-
-`HIGH` · Mobile Security / Reverse Engineering
-
 ## Contents_Index
 
 - [About the Operator](#about-the-operator)
