@@ -1,7 +1,7 @@
 ---
 title: "Hardcoded App Key: Unauthenticated Remote Config Exposure and Data Poisoning in a Mobility Android App"
 description: "A hardcoded app key inside an analytics SDK exposed feature flags and allowed arbitrary event injection in an Android fleet-management app — with zero authentication."
-pubDate: "2026-07-19"
+pubDate: 2026-09-09
 author: "E0B3"
 team: "Red Team"
 category: "Offensive Techniques"
