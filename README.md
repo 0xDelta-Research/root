@@ -65,9 +65,8 @@ Cyber Threat Intelligence · OSINT · Privacy & Compliance
 | **[0x_OLYMPUS](https://www.linkedin.com/in/moises-cerqueira/)** | 🔵 Threat Research Lead | APT tracking, malware analysis, reverse engineering |
 | **[SPECIEUNKN0WN_](https://github.com/stnert)** | 🔵 SOC Lead | Hardening, Data Privacy, Security Operations |
 | **[MENSVR](https://mensvr.com/)** | 🟣 Counter Adversary | Purple ops, threat hunting, malware analysis |
-| **[SERROS404](https://github.com/serros404)** | 🔴 Red Team Lead | Web & API exploitation, bug bounty |
-| **[ANKHCORP](https://github.com/Ankhcorp)** | 🔴 Red Team | Web exploitation, OSINT, C2 infrastructure |
-| **[E0B3](https://github.com/Hunter-scriptkiddie)** | 🔴 Red Team | Bug hunting, recon methodology, tooling |
+| **[SERROS404](https://github.com/serros404)** | 🔴 Web Security Team | Web & API exploitation, bug bounty |
+| **[E0B3](https://github.com/Hunter-scriptkiddie)** | 🔴 Web Security Team | Bug hunting, recon methodology, tooling |
 
 ## Responsible Disclosure
 
