@@ -171,6 +171,25 @@ const accentShadow = isRed
               </a>
             )}
           </div>
+
+          <!-- Bug Bounty -->
+          {data.bugBounty && data.bugBounty.length > 0 && (
+            <div class="mt-6">
+              <p class="text-[10px] font-mono text-neutral-600 uppercase tracking-[0.2em] mb-2">Bug Bounty</p>
+              <div class="flex flex-wrap gap-2">
+                {data.bugBounty.map((b) => (
+                  <a
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={`text-[10px] font-mono border border-neutral-800 text-neutral-500 px-2 py-1 uppercase transition-colors ${isRed ? 'hover:border-red-900 hover:text-red-400 hover:bg-red-950/20' : 'hover:border-blue-900 hover:text-blue-400 hover:bg-blue-950/20'}`}
+                  >
+                    {b.platform}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <!-- Stat: posts -->

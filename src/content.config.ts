@@ -71,6 +71,13 @@ const team = defineCollection({
       twitter: z.string().url().optional(),
       website: z.string().url().optional(),
     }).optional(),
+
+    // Perfis em plataformas de bug bounty. Lista aberta: uma plataforma nova
+    // entra só pelo frontmatter, sem mexer em código.
+    bugBounty: z.array(z.object({
+      platform: z.string(),
+      url: z.string().url(),
+    })).optional(),
   })
 });
 
