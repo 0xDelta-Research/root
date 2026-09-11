@@ -9,12 +9,6 @@ tags: ["Bug Bounty", "Mobile Security", "Reverse Engineering", "Hardcoded Creden
 risk: "HIGH"
 ---
 
-●SYSTEM_ONLINE
-
-**Declassified Report // mobile-security/offensive-techniques/hardcoded-telemetry-key**
-
-`HIGH` · Mobile Security / Reverse Engineering
-
 ## Contents_Index
 
 - [About the Operator](#about-the-operator)
@@ -167,5 +161,3 @@ And, as far as we're concerned, we keep hunting this kind of pattern together.
 > **⚠️ Disclaimer:** This research was conducted within the authorized scope of a private bug bounty program. Company names, app names, files, and original keys have been omitted or generalized in this public version as a matter of responsible disclosure best practice.
 
 ---
-
-`END OF REPORT // mobile-security/offensive-techniques/hardcoded-telemetry-key`
