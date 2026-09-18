@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin, Rss } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -38,6 +38,15 @@ const Footer = () => {
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
+            </a>
+
+            <a
+              href="/rss.xml"
+              className="p-3 border border-neutral-800 bg-neutral-900 text-neutral-500 hover:text-white hover:border-white hover:bg-white/10 transition-all duration-200"
+              aria-label="RSS feed"
+              title="RSS feed"
+            >
+              <Rss className="w-5 h-5" />
             </a>
           </div>
         </div>
