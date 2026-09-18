@@ -61,11 +61,14 @@
 
           .count{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#525252;margin:34px 0 14px;}
 
-          .item{border:1px solid #262626;background:rgba(255,255,255,.015);padding:20px;margin-bottom:10px;transition:border-color .2s;}
+          .item{position:relative;border:1px solid #262626;background:rgba(255,255,255,.015);padding:20px;margin-bottom:10px;transition:border-color .2s;}
           .item:hover{border-color:#525252;}
+          /* Link esticado: clicar em qualquer area do card abre o relatorio.
+             Mesmo padrao usado nos cards de operador do site. */
+          .item .stretch{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;cursor:pointer;}
           .meta{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#525252;margin-bottom:9px;}
           .item h3{margin:0 0 9px;font-size:15px;line-height:1.35;color:#e5e5e5;font-weight:700;text-transform:none;letter-spacing:-.01em;}
-          .item a.t:hover h3{color:#fff;}
+          .item:hover h3{color:#fff;}
           .item p{margin:0;color:#737373;font-size:13px;}
 
           .foot{margin-top:44px;padding-top:22px;border-top:1px solid #262626;font-size:11px;letter-spacing:.06em;color:#525252;}
@@ -105,6 +108,10 @@
 
           <xsl:for-each select="/rss/channel/item">
             <div class="item">
+              <a class="stretch">
+                <xsl:attribute name="href"><xsl:value-of select="link"/></xsl:attribute>
+                <xsl:attribute name="aria-label"><xsl:value-of select="title"/></xsl:attribute>
+              </a>
               <div class="meta">
                 <xsl:value-of select="substring(pubDate,6,11)"/>
                 <xsl:if test="category">
@@ -112,10 +119,7 @@
                   <xsl:value-of select="category[2]"/>
                 </xsl:if>
               </div>
-              <a class="t">
-                <xsl:attribute name="href"><xsl:value-of select="link"/></xsl:attribute>
-                <h3><xsl:value-of select="title"/></h3>
-              </a>
+              <h3><xsl:value-of select="title"/></h3>
               <p><xsl:value-of select="description"/></p>
             </div>
           </xsl:for-each>
