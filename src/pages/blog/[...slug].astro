@@ -77,6 +77,44 @@ const relatedPosts = allPosts
 // --- OG IMAGE (gerada por post no build) ---
 const ogImage = entry.data.image ?? new URL(`/og/${entry.id}.png`, Astro.site).href;
 
+// --- DADOS ESTRUTURADOS (schema.org BlogPosting) ---
+// Declara autoria, data e seção de forma explícita para o Google, em vez de
+// deixar que ele infira do texto. É o que habilita resultado rico na busca.
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+const jsonLd: Record<string, any> = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.pubDate.toISOString(),
+  inLanguage: 'en',
+  url: canonicalUrl,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+  image: ogImage,
+  articleSection: entry.data.category,
+  author: {
+    '@type': 'Person',
+    name: entry.data.author,
+    // Só aponta para o perfil quando o nick casa com um operador existente;
+    // um nick descontinuado não deve virar link quebrado nos dados estruturados.
+    ...(authorProfile
+      ? { url: new URL(`/team/${authorProfile.id}/`, Astro.site).href }
+      : {}),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: '0xDelta Research',
+    url: Astro.site!.href,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/delta-favicon.png', Astro.site).href,
+    },
+  },
+};
+
+if (entry.data.tags?.length) jsonLd.keywords = entry.data.tags;
+
 // --- LÓGICA DO ÍNDICE ---
 interface HeadingNode {
   depth: number;
@@ -121,6 +159,9 @@ headings.forEach((h: any) => {
     <meta name="twitter:title" content={entry.data.title} />
     <meta name="twitter:description" content={entry.data.description} />
     <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </head>
 
 <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono selection:bg-neutral-800 selection:text-white">
