@@ -1,0 +1,42 @@
+name: CI
+
+# The deploy workflow only fires on push to main, so until now nothing built a
+# change before it landed — a broken build was only visible after the merge.
+# This builds every pull request first.
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# A new push to a PR makes the previous run pointless.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Pinned to 20 on purpose: that is withastro/action@v2's default, which is
+      # what deploy runs on. Matching it is the whole point — a green check here
+      # means the deploy will build on the same Node.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      # npm ci, not npm install: it fails on a lockfile that drifted from
+      # package.json instead of quietly resolving something else.
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
