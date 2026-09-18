@@ -47,6 +47,8 @@ Cyber Threat Intelligence · OSINT · Privacy & Compliance
 
 | Report | Division | Author |
 |--------|----------|--------|
+| [Fake DocuSign / DANFE-NFe Phishing Delivering an HVNC Windows Backdoor](https://0xdelta.org/blog/blue-team/malware-analysis-reverse-engineering/hvnc-windows-backdoor/) — four-stage chain, keylogging & Firefox artifact theft over raw-TCP C2 | Malware Analysis | 0x_OLYMPUS |
+| [Hardcoded App Key — Unauthenticated Remote Config Exposure & Data Poisoning](https://0xdelta.org/blog/red-team/offensive-techniques/hardcoded-app-key-remote-config-data-poisoning-1/) | Offensive Techniques | E0B3 |
 | [Dissecting IDOR — Hidden Resources Still Reachable Through the API](https://0xdelta.org/blog/red-team/web-security/dissecting-idor/) | Web Security | SERROS404 |
 | [ValleyRAT via Trojanized DingTalk Downloader](https://0xdelta.org/blog/blue-team/malware-analysis-reverse-engineering/valleyrat/) — NVIDIA DLL sideloading & process injection | Malware Analysis | 0x_OLYMPUS |
 | [UpCrypter Loader Delivering XWorm V5.6 RAT](https://0xdelta.org/blog/blue-team/malware-analysis-reverse-engineering/xworm-ucrypter-rat/) — full-chain analysis & config extraction | Malware Analysis | 0x_OLYMPUS |
