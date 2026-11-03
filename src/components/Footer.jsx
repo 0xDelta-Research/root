@@ -41,7 +41,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="/rss.xml"
+              href="/feed/"
               className="p-3 border border-neutral-800 bg-neutral-900 text-neutral-500 hover:text-white hover:border-white hover:bg-white/10 transition-all duration-200"
               aria-label="RSS feed"
               title="RSS feed"
