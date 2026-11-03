@@ -11,9 +11,8 @@ export async function GET(context: APIContext) {
     title: '0xDelta Research',
     description: 'Offensive and defensive cybersecurity research — Red Team techniques, malware analysis, threat hunting, and more.',
     site: context.site!,
-    // Faz o navegador renderizar /rss.xml como página legível em vez de XML
-    // cru. Leitores de feed ignoram a folha e leem o XML normalmente.
-    stylesheet: '/rss-styles.xsl',
+    // Sem stylesheet XSLT: navegadores estão removendo XSLT (Chrome 158).
+    // O rodapé linka direto aqui: o navegador mostra o XML puro, como em outros feeds do setor.
     items: posts.map(post => ({
       title: post.data.title,
       description: post.data.description,
