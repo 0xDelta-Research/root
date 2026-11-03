@@ -1,35 +1,13 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import SecureContact from '../components/SecureContact.jsx';
 ---
 
-<html lang="en">
-  <head>
-    <title>Contact | 0xDelta Research</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-    <!-- SEO -->
-    <meta name="description" content="Contact 0xDelta Research — reach us via encrypted email with PGP, GitHub, or LinkedIn." />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content="Contact | 0xDelta Research" />
-    <meta property="og:description" content="Contact 0xDelta Research — reach us via encrypted email with PGP, GitHub, or LinkedIn." />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Contact | 0xDelta Research" />
-    <meta name="twitter:description" content="Contact 0xDelta Research — reach us via encrypted email with PGP, GitHub, or LinkedIn." />
-  </head>
-
-  <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
-
-    <Header client:idle />
+<BaseLayout
+  title="Contact | 0xDelta Research"
+  description="Contact 0xDelta Research — reach us via encrypted email with PGP, GitHub, or LinkedIn."
+  bodyClass="min-h-screen bg-neutral-950 text-neutral-400 font-mono"
+>
 
     <main class="container mx-auto px-4 py-24 min-h-screen">
 
@@ -53,6 +31,4 @@ import SecureContact from '../components/SecureContact.jsx';
 
     </main>
 
-    <Footer />
-  </body>
-</html>
+</BaseLayout>
