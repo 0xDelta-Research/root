@@ -3,13 +3,34 @@ import { OGImageRoute } from 'astro-og-canvas';
 
 // Gera uma imagem OpenGraph (1200x630) por relatório, no build.
 // A imagem fica em /og/<id-do-post>.png e é referenciada no <head> do post.
+// /og/site.png é o card padrão das demais páginas (BaseLayout).
 const entries = await getCollection('blog');
-const pages = Object.fromEntries(entries.map((e) => [e.id, e.data]));
+const pages: Record<string, any> = Object.fromEntries(entries.map((e) => [e.id, e.data]));
+pages.site = {
+  site: true,
+  title: '0xDelta Research',
+  description: 'Offensive & defensive security research',
+};
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   param: 'route',
   pages,
   getImageOptions: (_path, page: any) => {
+    if (page.site) {
+      // Sem tag de time: fundo liso no preto do site e barra neutra.
+      return {
+        title: page.title,
+        description: page.description,
+        bgGradient: [[5, 5, 5]],
+        logo: { path: './src/assets/og/brand.png', size: [600] },
+        border: { color: [64, 64, 64], width: 24, side: 'inline-start' },
+        padding: 70,
+        font: {
+          title: { color: [237, 237, 237], size: 60, lineHeight: 1.15 },
+          description: { color: [163, 163, 163], size: 29, lineHeight: 1.4 },
+        },
+      };
+    }
     const isRed = page.team === 'Red Team';
     const accent: [number, number, number] = isRed ? [239, 68, 68] : [59, 130, 246];
     const meta =

@@ -1,9 +1,7 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
 import TeamProfiles from '../components/TeamProfiles.jsx';
-import '../styles/global.css';
 
 const rawTeamMembers = await getCollection('team');
 
@@ -25,27 +23,12 @@ const redTeam = rawTeamMembers.filter((m) => m.data.team === 'Red Team').sort(so
 const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team' || m.data.team === 'Purple Team').sort(sortByOrder);
 ---
 
-<html lang="en">
-  <head>
-    <title>Operators | 0xDelta Research</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-    <!-- SEO -->
-    <meta name="description" content="0xDelta Research operators — Red Team and Blue Team. Offensive and defensive cybersecurity researchers." />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content="Operators | 0xDelta Research" />
-    <meta property="og:description" content="Meet the Red Team and Blue Team operators behind 0xDelta Research." />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-  </head>
-
-  <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
-
-    <Header client:idle />
+<BaseLayout
+  title="Operators | 0xDelta Research"
+  description="0xDelta Research operators — Red Team and Blue Team. Offensive and defensive cybersecurity researchers."
+  socialDescription="Meet the Red Team and Blue Team operators behind 0xDelta Research."
+  bodyClass="min-h-screen bg-neutral-950 text-neutral-400 font-mono"
+>
 
     <main class="container mx-auto px-4 py-24 min-h-screen">
 
@@ -92,6 +75,4 @@ const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team' || m.d
 
     </main>
 
-    <Footer />
-  </body>
-</html>
+</BaseLayout>
