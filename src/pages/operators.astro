@@ -40,7 +40,7 @@ const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team' || m.d
     <meta property="og:site_name" content="0xDelta Research" />
     <meta property="og:title" content="Operators | 0xDelta Research" />
     <meta property="og:description" content="Meet the Red Team and Blue Team operators behind 0xDelta Research." />
-    <meta property="og:url" content="https://0xdelta.org/operators" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
   </head>
 
   <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
@@ -73,7 +73,7 @@ const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team' || m.d
             <span class="text-[10px] font-bold text-blue-400/70 tracking-widest uppercase">// DEFENSIVE</span>
             <div class="flex-1 h-[1px] bg-gradient-to-r from-blue-900/50 to-transparent"></div>
           </div>
-          <TeamProfiles client:visible members={blueTeam} />
+          <TeamProfiles client:visible members={blueTeam.map(({ id, data }) => ({ id, data }))} />
         </section>
       )}
 
@@ -86,12 +86,12 @@ const blueTeam = rawTeamMembers.filter((m) => m.data.team === 'Blue Team' || m.d
             <span class="text-[10px] font-bold text-red-500/70 tracking-widest uppercase">// OFFENSIVE</span>
             <div class="flex-1 h-[1px] bg-gradient-to-r from-red-900/50 to-transparent"></div>
           </div>
-          <TeamProfiles client:visible members={redTeam} />
+          <TeamProfiles client:visible members={redTeam.map(({ id, data }) => ({ id, data }))} />
         </section>
       )}
 
     </main>
 
-    <Footer client:visible />
+    <Footer />
   </body>
 </html>

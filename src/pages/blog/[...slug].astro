@@ -150,7 +150,7 @@ headings.forEach((h: any) => {
     <meta property="og:site_name" content="0xDelta Research" />
     <meta property="og:title" content={entry.data.title} />
     <meta property="og:description" content={entry.data.description} />
-    <meta property="og:url" content={`https://0xdelta.org/blog/${(entry as any).slug || entry.id}`} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -448,7 +448,7 @@ headings.forEach((h: any) => {
                             <h2 class="text-lg font-bold text-white uppercase tracking-tight">Related Reports</h2>
                             <span class="text-[9px] font-mono text-neutral-600">// SIMILAR_INTEL</span>
                         </div>
-                        <LatestResearch client:visible posts={relatedPosts} variant="stealth" />
+                        <LatestResearch posts={relatedPosts} variant="stealth" />
                     </div>
                 )}
 
@@ -500,7 +500,7 @@ headings.forEach((h: any) => {
         </div>
     </main>
 
-    <Footer client:visible />
+    <Footer />
 
     {/* --- LIGHTBOX --- */}
     <div id="image-lightbox" class="hidden fixed inset-0 z-[9999] bg-black/95 flex-col items-center justify-center p-4 cursor-zoom-out backdrop-blur-sm transition-opacity duration-300">
@@ -552,13 +552,18 @@ headings.forEach((h: any) => {
         document.querySelectorAll('pre').forEach((pre) => {
             const button = document.createElement('button');
             button.className = 'copy-button';
-            button.innerHTML = `<span>COPY</span>`;
-            button.addEventListener('click', () => {
+            const originalHtml = `<span>COPY</span>`;
+            button.innerHTML = originalHtml;
+            button.addEventListener('click', async () => {
                 const codeElement = pre.querySelector('code');
                 if (!codeElement) return;
-                const code = codeElement.innerText;
-                navigator.clipboard.writeText(codeElement.innerText);
-                const originalHtml = button.innerHTML;
+                // Só confirma "COPIED" se a cópia deu certo: o clipboard pode ser
+                // negado, ou nem existir fora de HTTPS (navigator.clipboard undefined).
+                try {
+                    await navigator.clipboard.writeText(codeElement.innerText);
+                } catch {
+                    return;
+                }
                 button.innerHTML = `<span style="color:#fff">COPIED</span>`;
                 button.style.borderColor = '#fff';
                 setTimeout(() => {

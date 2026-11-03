@@ -18,7 +18,7 @@ import Footer from '../components/Footer.jsx';
     <meta property="og:site_name" content="0xDelta Research" />
     <meta property="og:title" content="Support | 0xDelta Research" />
     <meta property="og:description" content="Support 0xDelta Research — fund independent cybersecurity research." />
-    <meta property="og:url" content="https://0xdelta.org/donate" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Support | 0xDelta Research" />
@@ -95,7 +95,7 @@ import Footer from '../components/Footer.jsx';
 
     </main>
 
-    <Footer client:visible />
+    <Footer />
 
 
   </body>

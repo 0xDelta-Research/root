@@ -24,7 +24,7 @@ const allPosts = (await getCollection('blog'))
     <meta property="og:site_name" content="0xDelta Research" />
     <meta property="og:title" content="Intelligence Archive | 0xDelta Research" />
     <meta property="og:description" content="Central repository of offensive and defensive tradecraft. Red Team, Blue Team, malware analysis, threat hunting." />
-    <meta property="og:url" content="https://0xdelta.org/blog" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Intelligence Archive | 0xDelta Research" />
@@ -53,10 +53,11 @@ const allPosts = (await getCollection('blog'))
         </div>
       </header>
 
-      <BlogFilter client:load allPosts={allPosts} />
+      {/* Só id/data: a entrada inteira (markdown + HTML do post) iria serializada no HTML da ilha. */}
+      <BlogFilter client:load allPosts={allPosts.map(({ id, data }) => ({ id, data }))} />
       
     </main>
 
-    <Footer client:visible />
+    <Footer />
   </body>
 </html>
