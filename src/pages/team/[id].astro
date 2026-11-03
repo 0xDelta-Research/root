@@ -1,9 +1,8 @@
 ---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { byNewest } from '../../lib/posts';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import Header from '../../components/Header.jsx';
-import Footer from '../../components/Footer.jsx';
 import LatestResearch from '../../components/LatestResearch.jsx';
-import '../../styles/global.css';
 import {
   Terminal, Shield, Activity, Bug, Github, Linkedin, Globe, Twitter,
   Fingerprint, Crosshair, Radio, ScanEye, ArrowLeft
@@ -24,7 +23,7 @@ export async function getStaticPaths() {
             p.data.author.toLowerCase() === nick ||
             (p.data.collaborators ?? []).some(c => c.toLowerCase() === nick)
           )
-          .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+          .sort(byNewest),
       },
     };
   });
@@ -53,32 +52,12 @@ const accentShadow = isRed
   : 'shadow-[0_0_40px_-8px_rgba(59,130,246,0.25)]';
 ---
 
-<html lang="en">
-<head>
-  <title>{data.name} | 0xDelta Research</title>
-  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="/delta-favicon.png" />
-  <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-  <!-- SEO -->
-  <meta name="description" content={`${data.name} — ${data.role} at 0xDelta Research. ${data.team} operator.`} />
-  <!-- Open Graph -->
-  <meta property="og:type" content="profile" />
-  <meta property="og:site_name" content="0xDelta Research" />
-  <meta property="og:title" content={`${data.name} | 0xDelta Research`} />
-  <meta property="og:description" content={`${data.name} — ${data.role} at 0xDelta Research.`} />
-  <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-  <meta property="og:image" content="https://0xdelta.org/delta-favicon.png" />
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content={`${data.name} | 0xDelta Research`} />
-  <meta name="twitter:description" content={`${data.name} — ${data.role} at 0xDelta Research.`} />
-</head>
-
-<body class="min-h-screen bg-[#050505] text-neutral-400 font-mono">
-
-  <Header client:idle />
+<BaseLayout
+  title={`${data.name} | 0xDelta Research`}
+  description={`${data.name} — ${data.role} at 0xDelta Research. ${data.team} operator.`}
+  socialDescription={`${data.name} — ${data.role} at 0xDelta Research.`}
+  type="profile"
+>
 
   <main class="container mx-auto px-4 py-12">
 
@@ -221,6 +200,4 @@ const accentShadow = isRed
 
   </main>
 
-  <Footer />
-</body>
-</html>
+</BaseLayout>

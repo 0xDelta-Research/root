@@ -1,14 +1,13 @@
 ---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { byNewest } from '../../lib/posts';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import Header from '../../components/Header.jsx';
-import Footer from '../../components/Footer.jsx';
 import LatestResearch from '../../components/LatestResearch.jsx';
 import { User, Users, Calendar, Clock, ArrowLeft, ArrowRight, Terminal, FileText, Share2, AlertTriangle, Bug, Shield, Activity, Github, Linkedin, Globe, Twitter, Fingerprint, Crosshair, Radio, ScanEye, ExternalLink } from 'lucide-react';
-import '../../styles/global.css';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
-  const sorted = blogEntries.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const sorted = blogEntries.sort(byNewest);
   return sorted.map((entry, index) => ({
     params: { slug: (entry as any).slug || entry.id },
     props: {
@@ -70,7 +69,7 @@ const relatedPosts = allPosts
     return { p, score };
   })
   .filter(x => x.score > 0)
-  .sort((a, b) => b.score - a.score || b.p.data.pubDate.valueOf() - a.p.data.pubDate.valueOf())
+  .sort((a, b) => b.score - a.score || byNewest(a.p, b.p))
   .slice(0, 3)
   .map(x => x.p);
 
@@ -134,44 +133,24 @@ headings.forEach((h: any) => {
 });
 ---
 
-<html lang="en">
-<head>
-    <title>{entry.data.title} | 0xDelta Research</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-    <!-- SEO -->
-    <meta name="description" content={entry.data.description} />
-    <meta name="author" content={entry.data.author} />
-    <!-- Open Graph -->
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content={entry.data.title} />
-    <meta property="og:description" content={entry.data.description} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={entry.data.title} />
-    <meta name="twitter:description" content={entry.data.description} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <!-- Structured data -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-</head>
-
-<body class="min-h-screen bg-[#050505] text-neutral-400 font-mono selection:bg-neutral-800 selection:text-white">
+<BaseLayout
+    title={`${entry.data.title} | 0xDelta Research`}
+    description={entry.data.description}
+    socialTitle={entry.data.title}
+    type="article"
+    image={ogImage}
+    bodyClass="min-h-screen bg-[#050505] text-neutral-400 font-mono selection:bg-neutral-800 selection:text-white"
+>
+    <Fragment slot="head">
+        <meta name="author" content={entry.data.author} />
+        <!-- Structured data -->
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    </Fragment>
 
     {/* Barra de progresso de leitura */}
     <div id="reading-progress" class="fixed top-0 left-0 h-[2px] z-[100] w-0 transition-none"
       style={`background: ${entry.data.team === 'Red Team' ? '#ef4444' : '#3b82f6'}`}
     ></div>
-
-    <Header client:idle />
 
     <main class="container mx-auto px-4 py-12">
         
@@ -500,8 +479,6 @@ headings.forEach((h: any) => {
         </div>
     </main>
 
-    <Footer />
-
     {/* --- LIGHTBOX --- */}
     <div id="image-lightbox" class="hidden fixed inset-0 z-[9999] bg-black/95 flex-col items-center justify-center p-4 cursor-zoom-out backdrop-blur-sm transition-opacity duration-300">
         <img id="lightbox-img" src="" alt="Evidence" class="max-w-full max-h-[85vh] border border-white/20 shadow-2xl object-contain" />
@@ -626,8 +603,7 @@ headings.forEach((h: any) => {
             });
         }
     </script>
-</body>
-</html>
+</BaseLayout>
 
 <style is:global>
     /* Estilos do Artigo (PADRÃO DELTA - MONOCROMÁTICO TÁTICO) */

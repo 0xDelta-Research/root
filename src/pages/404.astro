@@ -1,21 +1,14 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { Lock, ArrowLeft } from 'lucide-react';
 ---
 
-<html lang="en">
-  <head>
-    <title>404 // ACCESS DENIED</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-  </head>
-  
-  <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono flex flex-col">
-    
-    <Header client:idle />
+<BaseLayout
+  title="404 // ACCESS DENIED"
+  description="Page not found on 0xDelta Research."
+  noindex
+  bodyClass="min-h-screen bg-neutral-950 text-neutral-400 font-mono flex flex-col"
+>
 
     <main class="flex-grow flex items-center justify-center p-4">
         <div class="max-w-xl w-full border border-neutral-800 bg-neutral-900/20 p-12 text-center">
@@ -41,6 +34,4 @@ import { Lock, ArrowLeft } from 'lucide-react';
         </div>
     </main>
 
-    <Footer />
-  </body>
-</html>
+</BaseLayout>

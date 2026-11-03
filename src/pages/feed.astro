@@ -1,41 +1,18 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 // Página humana do feed. Substitui a folha XSLT que transformava /rss.xml:
 // o Chrome 158 (17/11/2026) desliga XSLT, e a URL passaria a mostrar XML cru.
 // O /rss.xml continua sendo o feed para leitores; quem é pessoa cai aqui.
-import '../styles/global.css';
 import { getCollection } from 'astro:content';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
 
 const feedUrl = new URL('/rss.xml', Astro.site).href;
 const total = (await getCollection('blog')).length;
 ---
 
-<html lang="en">
-  <head>
-    <title>RSS Feed | 0xDelta Research</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-    <!-- SEO -->
-    <meta name="description" content="Subscribe to 0xDelta Research via RSS — every new report lands in your feed reader. No email, no signup." />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content="RSS Feed | 0xDelta Research" />
-    <meta property="og:description" content="Subscribe to 0xDelta Research via RSS — every new report lands in your feed reader. No email, no signup." />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="RSS Feed | 0xDelta Research" />
-    <meta name="twitter:description" content="Subscribe to 0xDelta Research via RSS — every new report lands in your feed reader. No email, no signup." />
-  </head>
-
-  <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono">
-
-    <Header client:idle />
+<BaseLayout
+  title="RSS Feed | 0xDelta Research"
+  description="Subscribe to 0xDelta Research via RSS — every new report lands in your feed reader. No email, no signup."
+>
 
     <main class="container mx-auto px-4 py-24 min-h-screen">
 
@@ -73,6 +50,4 @@ const total = (await getCollection('blog')).length;
 
     </main>
 
-    <Footer />
-  </body>
-</html>
+</BaseLayout>

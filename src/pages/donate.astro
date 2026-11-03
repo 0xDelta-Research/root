@@ -1,33 +1,11 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <title>Support | 0xDelta Research</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <!-- SEO -->
-    <meta name="description" content="Support 0xDelta Research — fund independent cybersecurity research." />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content="Support | 0xDelta Research" />
-    <meta property="og:description" content="Support 0xDelta Research — fund independent cybersecurity research." />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Support | 0xDelta Research" />
-    <meta name="twitter:description" content="Support 0xDelta Research — fund independent cybersecurity research." />
-  </head>
-
-  <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono">
-
-    <Header client:idle />
+<BaseLayout
+  title="Support | 0xDelta Research"
+  description="Support 0xDelta Research — fund independent cybersecurity research."
+>
 
     <main class="container mx-auto px-4 py-24 min-h-screen">
 
@@ -95,8 +73,4 @@ import Footer from '../components/Footer.jsx';
 
     </main>
 
-    <Footer />
-
-
-  </body>
-</html>
+</BaseLayout>
