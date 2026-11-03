@@ -55,7 +55,7 @@ The system granted immediate, unauthenticated access to the **Library Admin Dash
 *Figure 1: Successful login showing server statuses and internal configuration options.*
 
 #### Attack Flow
-```
+```text
 Recon → Code Source → Default Creds → Admin Panel → Full BI Access → Data Exfil / SSRF / DoS
 ```
 
