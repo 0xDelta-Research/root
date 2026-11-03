@@ -51,3 +51,8 @@ jobs:
           if [ "$rc" -eq 0 ]; then echo "Empty report body:"; echo "$empty"; exit 1; fi
           if [ "$rc" -ne 1 ]; then echo "grep failed with exit code $rc"; exit 1; fi
           echo "$reports report pages, all with a body"
+
+      # Every page must keep the BaseLayout SEO contract: one title/h1,
+      # description, og:image, and og:url equal to the canonical URL.
+      - name: Check SEO tags
+        run: node scripts/check-seo.mjs dist

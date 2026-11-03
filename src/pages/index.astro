@@ -1,9 +1,8 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { byNewest } from '../lib/posts';
 import { getCollection } from 'astro:content';
-import Header from '../components/Header.jsx';
 import LatestResearch from '../components/LatestResearch.jsx'; 
-import Footer from '../components/Footer.jsx';
 import TeamProfiles from '../components/TeamProfiles.jsx';
 import { Shield, ArrowRight, Cpu, Activity } from 'lucide-react';
 
@@ -27,35 +26,16 @@ const teamMembers = rawTeamMembers.sort((a, b) => {
 
 // Posts Recentes
 const latestPosts = allPosts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .sort(byNewest)
   .slice(0, 3);
 ---
 
-<html lang="en">
-  <head>
-    <title>0xDelta Research — Offensive & Defensive Security</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-    <!-- SEO -->
-    <meta name="description" content="0xDelta Research — Offensive and defensive cybersecurity research. Red Team techniques, malware analysis, threat hunting, and more." />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content="0xDelta Research — Offensive & Defensive Security" />
-    <meta property="og:description" content="Offensive and defensive cybersecurity research by practitioners who work in the environments where attacks unfold for real." />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="0xDelta Research" />
-    <meta name="twitter:description" content="Offensive and defensive cybersecurity research by practitioners who work in the environments where attacks unfold for real." />
-  </head>
-  
-  <body class="min-h-screen bg-[#050505] text-neutral-400 font-mono relative overflow-x-hidden">
-    
-    <Header client:idle />
+<BaseLayout
+  title="0xDelta Research — Offensive & Defensive Security"
+  description="0xDelta Research — Offensive and defensive cybersecurity research. Red Team techniques, malware analysis, threat hunting, and more."
+  socialDescription="Offensive and defensive cybersecurity research by practitioners who work in the environments where attacks unfold for real."
+  bodyClass="min-h-screen bg-[#050505] text-neutral-400 font-mono relative overflow-x-hidden"
+>
     
     <main class="relative z-10">
       
@@ -203,6 +183,4 @@ const latestPosts = allPosts
 
     </main>
 
-    <Footer />
-  </body>
-</html>
+</BaseLayout>

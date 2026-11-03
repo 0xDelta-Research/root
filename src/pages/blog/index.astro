@@ -1,39 +1,19 @@
 ---
-import '../../styles/global.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { byNewest } from '../../lib/posts';
 import { getCollection } from 'astro:content';
-import Header from '../../components/Header.jsx';
 import BlogFilter from '../../components/BlogFilter.jsx'; 
-import Footer from '../../components/Footer.jsx';
 
 const allPosts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .sort(byNewest);
 ---
 
-<html lang="en">
-  <head>
-    <title>Intelligence Archive | 0xDelta Research</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/delta-favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title="0xDelta Research" href="/rss.xml" />
-    <!-- SEO -->
-    <meta name="description" content="Intelligence Archive — Central repository of offensive and defensive cybersecurity tradecraft by 0xDelta Research." />
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="0xDelta Research" />
-    <meta property="og:title" content="Intelligence Archive | 0xDelta Research" />
-    <meta property="og:description" content="Central repository of offensive and defensive tradecraft. Red Team, Blue Team, malware analysis, threat hunting." />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Intelligence Archive | 0xDelta Research" />
-    <meta name="twitter:description" content="Central repository of offensive and defensive tradecraft. Red Team, Blue Team, malware analysis, threat hunting." />
-  </head>
-  
-  <body class="min-h-screen bg-neutral-950 text-neutral-400 font-mono">
-    
-    <Header client:idle />
+<BaseLayout
+  title="Intelligence Archive | 0xDelta Research"
+  description="Intelligence Archive — Central repository of offensive and defensive cybersecurity tradecraft by 0xDelta Research."
+  socialDescription="Central repository of offensive and defensive tradecraft. Red Team, Blue Team, malware analysis, threat hunting."
+  bodyClass="min-h-screen bg-neutral-950 text-neutral-400 font-mono"
+>
 
     <main class="container mx-auto px-4 py-24 min-h-screen">
       
@@ -58,6 +38,4 @@ const allPosts = (await getCollection('blog'))
       
     </main>
 
-    <Footer />
-  </body>
-</html>
+</BaseLayout>
