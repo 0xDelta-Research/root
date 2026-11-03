@@ -22,15 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      # Pinned to 20 on purpose: that is withastro/action@v2's default, which is
-      # what deploy runs on. Matching it is the whole point — a green check here
-      # means the deploy will build on the same Node.
+      # Must match node-version in main.yml: a green check here only means the
+      # deploy will build if both run the same Node.
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: npm
 
       # npm ci, not npm install: it fails on a lockfile that drifted from
@@ -40,3 +39,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # A broken markdown/Shiki setup can render every report with an empty
+      # body while the build still succeeds (happened in June 2026).
+      # Zero report pages must fail too (e.g. a broken content glob).
+      - name: Check report bodies rendered
+        run: |
+          reports=$(find dist/blog -mindepth 4 -name index.html | wc -l)
+          if [ "$reports" -eq 0 ]; then echo "No report pages were built"; exit 1; fi
+          rc=0; empty=$(grep -lE 'id="article-body">\s*</div>' -r dist/blog --include=index.html) || rc=$?
+          if [ "$rc" -eq 0 ]; then echo "Empty report body:"; echo "$empty"; exit 1; fi
+          if [ "$rc" -ne 1 ]; then echo "grep failed with exit code $rc"; exit 1; fi
+          echo "$reports report pages, all with a body"
