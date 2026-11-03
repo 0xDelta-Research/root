@@ -312,7 +312,7 @@ const BlogFilter = ({ allPosts }) => {
          <span>
             RESULTS_FOUND: <span className="text-white font-bold">{filteredPosts.length}</span>
          </span>
-         {(activeTeam !== 'ALL' || searchQuery || activeCategory) && (
+         {isFilterActive && (
             <button onClick={clearFilters} className="flex items-center gap-1 hover:text-white transition-colors">
                 <X className="w-3 h-3" /> CLEAR_FILTERS
             </button>

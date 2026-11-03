@@ -46,7 +46,7 @@ const latestPosts = allPosts
     <meta property="og:site_name" content="0xDelta Research" />
     <meta property="og:title" content="0xDelta Research — Offensive & Defensive Security" />
     <meta property="og:description" content="Offensive and defensive cybersecurity research by practitioners who work in the environments where attacks unfold for real." />
-    <meta property="og:url" content="https://0xdelta.org" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="0xDelta Research" />
@@ -173,7 +173,7 @@ const latestPosts = allPosts
             </div>
             
             {latestPosts.length > 0 ? (
-               <LatestResearch client:visible posts={latestPosts} variant="stealth" />
+               <LatestResearch posts={latestPosts} variant="stealth" />
             ) : (
                <div class="border border-dashed border-neutral-800 p-10 text-center text-neutral-600">
                   // SYSTEM_MESSAGE: No reports found yet.
@@ -197,12 +197,12 @@ const latestPosts = allPosts
                 <p class="text-sm text-neutral-600 font-bold tracking-widest uppercase">[ UNIT_MEMBERS ]</p>
             </div>
             
-            <TeamProfiles client:visible members={teamMembers} />
+            <TeamProfiles client:visible members={teamMembers.map(({ id, data }) => ({ id, data }))} />
         </div>
       </section>
 
     </main>
 
-    <Footer client:visible />
+    <Footer />
   </body>
 </html>
