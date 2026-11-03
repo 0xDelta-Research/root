@@ -262,7 +262,7 @@ headings.forEach((h: any) => {
 
                         {/* BADGE DE RISCO */}
                         {entry.data.risk && (
-                            <div class={`flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border rounded-sm ${
+                            <div class={`flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border ${
                                 entry.data.risk === 'CRITICAL' ? 'border-red-500 text-red-500 bg-red-950/10 animate-pulse' :
                                 entry.data.risk === 'HIGH' ? 'border-orange-500 text-orange-500 bg-orange-950/10 animate-pulse' :
                                 entry.data.risk === 'MEDIUM' ? 'border-yellow-500 text-yellow-500 bg-yellow-950/10 animate-pulse' :
@@ -406,22 +406,22 @@ headings.forEach((h: any) => {
                                     {/* Links */}
                                     <div class="flex gap-4 relative z-10">
                                         {authorProfile.data.social?.github && (
-                                            <a href={authorProfile.data.social.github} target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
+                                            <a href={authorProfile.data.social.github} aria-label="GitHub" target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
                                                 <Github className="w-5 h-5" />
                                             </a>
                                         )}
                                         {authorProfile.data.social?.linkedin && (
-                                            <a href={authorProfile.data.social.linkedin} target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
+                                            <a href={authorProfile.data.social.linkedin} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
                                                 <Linkedin className="w-5 h-5" />
                                             </a>
                                         )}
                                         {authorProfile.data.social?.twitter && (
-                                            <a href={authorProfile.data.social.twitter} target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
+                                            <a href={authorProfile.data.social.twitter} aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
                                                 <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                                             </a>
                                         )}
                                         {authorProfile.data.social?.website && (
-                                            <a href={authorProfile.data.social.website} target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
+                                            <a href={authorProfile.data.social.website} aria-label="Website" target="_blank" rel="noopener noreferrer" class="text-neutral-600 hover:text-white transition-colors">
                                                 <Globe className="w-5 h-5" />
                                             </a>
                                         )}

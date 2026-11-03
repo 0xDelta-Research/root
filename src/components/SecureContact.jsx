@@ -156,7 +156,7 @@ DwgFYb7RTIZ4aib4ga8=
             </a>
           </div>
 
-          <div className="bg-neutral-950 border border-neutral-800 p-6 rounded-sm">
+          <div className="bg-neutral-950 border border-neutral-800 p-6">
             <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest mb-4 border-b border-neutral-800 pb-2">
               // Communication_Protocols
             </p>
@@ -201,7 +201,7 @@ DwgFYb7RTIZ4aib4ga8=
             </button>
           </div>
 
-          <div className="flex-grow relative border border-neutral-800 bg-black">
+          <div className="flex-grow relative min-h-[16rem] lg:min-h-0 border border-neutral-800 bg-black">
             <div className="absolute inset-0 overflow-y-auto p-4 custom-scrollbar">
               <pre className="font-mono text-[9px] text-neutral-500 whitespace-pre-wrap break-all leading-relaxed select-all">
 {pgpKey}
