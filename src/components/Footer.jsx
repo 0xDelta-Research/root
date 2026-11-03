@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="border-t border-neutral-900 bg-neutral-950 py-8 mt-auto">
       <div className="container mx-auto px-4">
 
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
 
           {/* Identidade */}
           <div>

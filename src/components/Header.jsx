@@ -108,12 +108,12 @@ const Header = () => {
             </motion.div>
             
             <div className="flex flex-col">
-              <h1 className="text-xl font-bold text-white font-mono tracking-wider group-hover:text-neutral-300 transition-colors flex">
+              <span className="text-xl font-bold uppercase text-white font-mono tracking-wider group-hover:text-neutral-300 transition-colors flex">
                 {/* 0xD + GLITCH + LTA */}
                 <span>0xD</span>
                 <GlitchDigit />
                 <span>LTA</span>
-              </h1>
+              </span>
               <p className="text-[10px] text-neutral-500 font-mono tracking-widest uppercase">
                 [ RESEARCH_UNIT ]
               </p>
