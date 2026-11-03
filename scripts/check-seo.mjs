@@ -14,7 +14,10 @@ const walk = (dir) =>
 
 const attrs = (tag) => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]));
 
-function checkPage(html) {
+// URL pública esperada para um arquivo gerado: dist/blog/x/index.html -> SITE + 'blog/x/'.
+const urlFor = (file) => SITE + path.relative(dist, file).split(path.sep).join('/').replace(/index\.html$/, '');
+
+function checkPage(html, file) {
   const head = html.split('</head>')[0];
   const tags = [...head.matchAll(/<(meta|link)\b[^>]*>/g)].map((m) => attrs(m[0]));
   const meta = (key, val) => tags.filter((t) => t[key] === val).map((t) => t.content);
@@ -31,12 +34,13 @@ function checkPage(html) {
   one('twitter:card', meta('name', 'twitter:card'));
   const image = one('og:image', meta('property', 'og:image'));
   if (image && !image.startsWith(SITE)) problems.push(`og:image not absolute on ${SITE}: ${image}`);
+  else if (image && !fs.existsSync(path.join(dist, decodeURIComponent(new URL(image).pathname)))) problems.push(`og:image file not built: ${image}`);
 
   const noindex = meta('name', 'robots').some((c) => c?.includes('noindex'));
   if (!noindex) {
     const canonical = one('canonical', tags.filter((t) => t.rel === 'canonical').map((t) => t.href));
     const ogUrl = one('og:url', meta('property', 'og:url'));
-    if (canonical && !(canonical.startsWith(SITE) && canonical.endsWith('/'))) problems.push(`canonical not ${SITE}…/: ${canonical}`);
+    if (canonical && canonical !== urlFor(file)) problems.push(`canonical (${canonical}) != page URL (${urlFor(file)})`);
     if (canonical && ogUrl && canonical !== ogUrl) problems.push(`og:url (${ogUrl}) != canonical (${canonical})`);
   }
 
@@ -52,7 +56,7 @@ if (!pages.length) {
 }
 let failed = 0;
 for (const file of pages) {
-  const problems = checkPage(fs.readFileSync(file, 'utf8'));
+  const problems = checkPage(fs.readFileSync(file, 'utf8'), file);
   if (problems.length) {
     failed++;
     console.log(`${path.relative(dist, file)}\n  - ${problems.join('\n  - ')}`);
