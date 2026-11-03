@@ -42,7 +42,12 @@ jobs:
 
       # A broken markdown/Shiki setup can render every report with an empty
       # body while the build still succeeds (happened in June 2026).
+      # Zero report pages must fail too (e.g. a broken content glob).
       - name: Check report bodies rendered
         run: |
-          empty=$(grep -lE 'id="article-body">\s*</div>' -r dist/blog --include=index.html || true)
-          if [ -n "$empty" ]; then echo "Empty report body:"; echo "$empty"; exit 1; fi
+          reports=$(find dist/blog -mindepth 4 -name index.html | wc -l)
+          if [ "$reports" -eq 0 ]; then echo "No report pages were built"; exit 1; fi
+          rc=0; empty=$(grep -lE 'id="article-body">\s*</div>' -r dist/blog --include=index.html) || rc=$?
+          if [ "$rc" -eq 0 ]; then echo "Empty report body:"; echo "$empty"; exit 1; fi
+          if [ "$rc" -ne 1 ]; then echo "grep failed with exit code $rc"; exit 1; fi
+          echo "$reports report pages, all with a body"
