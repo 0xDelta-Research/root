@@ -150,7 +150,7 @@ headings.forEach((h: any) => {
     <meta property="og:site_name" content="0xDelta Research" />
     <meta property="og:title" content={entry.data.title} />
     <meta property="og:description" content={entry.data.description} />
-    <meta property="og:url" content={`https://0xdelta.org/blog/${(entry as any).slug || entry.id}`} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -448,7 +448,7 @@ headings.forEach((h: any) => {
                             <h2 class="text-lg font-bold text-white uppercase tracking-tight">Related Reports</h2>
                             <span class="text-[9px] font-mono text-neutral-600">// SIMILAR_INTEL</span>
                         </div>
-                        <LatestResearch client:visible posts={relatedPosts} variant="stealth" />
+                        <LatestResearch posts={relatedPosts} variant="stealth" />
                     </div>
                 )}
 
@@ -500,7 +500,7 @@ headings.forEach((h: any) => {
         </div>
     </main>
 
-    <Footer client:visible />
+    <Footer />
 
     {/* --- LIGHTBOX --- */}
     <div id="image-lightbox" class="hidden fixed inset-0 z-[9999] bg-black/95 flex-col items-center justify-center p-4 cursor-zoom-out backdrop-blur-sm transition-opacity duration-300">
@@ -556,15 +556,16 @@ headings.forEach((h: any) => {
             button.addEventListener('click', () => {
                 const codeElement = pre.querySelector('code');
                 if (!codeElement) return;
-                const code = codeElement.innerText;
-                navigator.clipboard.writeText(codeElement.innerText);
-                const originalHtml = button.innerHTML;
-                button.innerHTML = `<span style="color:#fff">COPIED</span>`;
-                button.style.borderColor = '#fff';
-                setTimeout(() => {
-                    button.innerHTML = originalHtml;
-                    button.style.borderColor = 'rgba(64, 64, 64, 0.5)';
-                }, 2000);
+                // Só confirma "COPIED" se a cópia deu certo (clipboard pode ser negado).
+                navigator.clipboard.writeText(codeElement.innerText).then(() => {
+                    const originalHtml = button.innerHTML;
+                    button.innerHTML = `<span style="color:#fff">COPIED</span>`;
+                    button.style.borderColor = '#fff';
+                    setTimeout(() => {
+                        button.innerHTML = originalHtml;
+                        button.style.borderColor = 'rgba(64, 64, 64, 0.5)';
+                    }, 2000);
+                }).catch(() => {});
             });
             pre.style.position = 'relative';
             pre.appendChild(button);

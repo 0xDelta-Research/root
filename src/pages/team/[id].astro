@@ -68,7 +68,7 @@ const accentShadow = isRed
   <meta property="og:site_name" content="0xDelta Research" />
   <meta property="og:title" content={`${data.name} | 0xDelta Research`} />
   <meta property="og:description" content={`${data.name} — ${data.role} at 0xDelta Research.`} />
-  <meta property="og:url" content={`https://0xdelta.org/team/${member.id}`} />
+  <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
   <meta property="og:image" content="https://0xdelta.org/delta-favicon.png" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
@@ -211,7 +211,7 @@ const accentShadow = isRed
       </div>
 
       {posts.length > 0 ? (
-        <LatestResearch client:visible posts={posts} variant="stealth" />
+        <LatestResearch posts={posts} variant="stealth" />
       ) : (
         <div class="py-24 text-center border border-dashed border-neutral-800 text-neutral-600 text-xs font-mono">
           // NO_REPORTS_YET
@@ -221,6 +221,6 @@ const accentShadow = isRed
 
   </main>
 
-  <Footer client:visible />
+  <Footer />
 </body>
 </html>
