@@ -148,7 +148,7 @@ These flaws significantly lower the barrier for abuse, replication, or escalatio
 The QR Code generated corresponds to a *dynamic PIX transaction*.
 
 *Extracted EMV data:*
-```
+```text
    00 01 Payload Format Indicator
    01 12 Point of Initiation Method (Dynamic)
    26 Merchant Account Information
@@ -237,19 +237,19 @@ While no direct actor attribution is claimed, the operation shows:
 
 ## 9. Indicators of Compromise (IOCs)
 *   *Domains*
-```
+```text
 motorista[.]resolvercarteira[.]com
 suaspendencias[.]com
 qrcode.pagsm.com[.]br
 ```    
 *   *URL Patterns*
-``` 
+```text
 /consultar
 /checkout/{cpf}/gerar
 /checkout/status
 ```     
 *   *Technologies*
-``` 
+```text
 Laravel (debug enabled)
 Cloudflare
 PIX dynamic QR codes
