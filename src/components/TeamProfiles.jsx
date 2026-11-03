@@ -128,22 +128,22 @@ const TeamProfiles = (props) => {
               {/* LINKS SOCIAIS */}
               <div className="relative z-20 flex justify-center gap-5 h-10 items-center mb-6">
                 {member.data.social?.github && (
-                    <a href={member.data.social.github} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
+                    <a href={member.data.social.github} aria-label="GitHub" target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <Github className="w-5 h-5" />
                     </a>
                 )}
                 {member.data.social?.linkedin && (
-                    <a href={member.data.social.linkedin} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
+                    <a href={member.data.social.linkedin} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <Linkedin className="w-5 h-5" />
                     </a>
                 )}
                 {member.data.social?.twitter && (
-                    <a href={member.data.social.twitter} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
+                    <a href={member.data.social.twitter} aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <XIcon className="w-[18px] h-[18px]" />
                     </a>
                 )}
                 {member.data.social?.website && (
-                    <a href={member.data.social.website} target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
+                    <a href={member.data.social.website} aria-label="Website" target="_blank" rel="noopener noreferrer" className={`text-neutral-600 transition-colors ${styles.textHover}`}>
                         <Globe className="w-5 h-5" />
                     </a>
                 )}
