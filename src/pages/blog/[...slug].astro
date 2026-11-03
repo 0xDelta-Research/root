@@ -552,20 +552,24 @@ headings.forEach((h: any) => {
         document.querySelectorAll('pre').forEach((pre) => {
             const button = document.createElement('button');
             button.className = 'copy-button';
-            button.innerHTML = `<span>COPY</span>`;
-            button.addEventListener('click', () => {
+            const originalHtml = `<span>COPY</span>`;
+            button.innerHTML = originalHtml;
+            button.addEventListener('click', async () => {
                 const codeElement = pre.querySelector('code');
                 if (!codeElement) return;
-                // Só confirma "COPIED" se a cópia deu certo (clipboard pode ser negado).
-                navigator.clipboard.writeText(codeElement.innerText).then(() => {
-                    const originalHtml = button.innerHTML;
-                    button.innerHTML = `<span style="color:#fff">COPIED</span>`;
-                    button.style.borderColor = '#fff';
-                    setTimeout(() => {
-                        button.innerHTML = originalHtml;
-                        button.style.borderColor = 'rgba(64, 64, 64, 0.5)';
-                    }, 2000);
-                }).catch(() => {});
+                // Só confirma "COPIED" se a cópia deu certo: o clipboard pode ser
+                // negado, ou nem existir fora de HTTPS (navigator.clipboard undefined).
+                try {
+                    await navigator.clipboard.writeText(codeElement.innerText);
+                } catch {
+                    return;
+                }
+                button.innerHTML = `<span style="color:#fff">COPIED</span>`;
+                button.style.borderColor = '#fff';
+                setTimeout(() => {
+                    button.innerHTML = originalHtml;
+                    button.style.borderColor = 'rgba(64, 64, 64, 0.5)';
+                }, 2000);
             });
             pre.style.position = 'relative';
             pre.appendChild(button);
