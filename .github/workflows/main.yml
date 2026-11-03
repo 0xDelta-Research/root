@@ -13,23 +13,27 @@ permissions:
   pages: write
   id-token: write
 
-# Impede deploys simultâneos bagunçados
+# Impede deploys simultâneos bagunçados. Não cancela o que está em andamento:
+# um deploy interrompido no meio deixa o ambiente "cancelled" (padrão do
+# starter oficial do GitHub Pages).
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v7
+
       # O Astro Action faz todo o trabalho pesado
       - name: Install, build, and upload your site
-        uses: withastro/action@v2
+        uses: withastro/action@v6
         with:
             package-manager: npm
+            # Igual ao node-version do ci.yml
+            node-version: 24
 
   deploy:
     needs: build
@@ -40,4 +44,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
