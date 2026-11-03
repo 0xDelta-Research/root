@@ -70,7 +70,7 @@ With the APK in hand, the workflow followed classic Android recon: decompilation
 
 Instead of reading class by class, the approach was to search directly for strings resembling tokens or hashes within the smali bytecode, filtering out the inevitable noise: signature hashes, SHA values used for integrity checks, and all the legitimate cryptographic material any app carries.
 
-```
+```bash
 grep -rniE "(app_key|apiKey|secret|token)\s*=\s*\"[a-z0-9]{20,}\"" target-app_decompiled/
 ```
 
@@ -88,7 +88,7 @@ With a valid production app key in hand, the next step was to precisely map what
 
 **a) Remote config read access**
 
-```
+```http
 GET /o/sdk?method=fetch_remote_config&app_key=<REDACTED>&device_id=<arbitrary>
 ```
 
@@ -96,7 +96,7 @@ The endpoint returned, for any client presenting the app key, the feature flags 
 
 **b) Arbitrary event injection (data poisoning)**
 
-```
+```http
 POST /i?app_key=<REDACTED>&device_id=<arbitrary_forged_id>
 Content-Type: application/x-www-form-urlencoded
 
