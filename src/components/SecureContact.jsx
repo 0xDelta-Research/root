@@ -201,7 +201,7 @@ DwgFYb7RTIZ4aib4ga8=
             </button>
           </div>
 
-          <div className="flex-grow relative border border-neutral-800 bg-black">
+          <div className="flex-grow relative min-h-[16rem] border border-neutral-800 bg-black">
             <div className="absolute inset-0 overflow-y-auto p-4 custom-scrollbar">
               <pre className="font-mono text-[9px] text-neutral-500 whitespace-pre-wrap break-all leading-relaxed select-all">
 {pgpKey}
