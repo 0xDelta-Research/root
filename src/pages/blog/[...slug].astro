@@ -241,7 +241,7 @@ headings.forEach((h: any) => {
 
                         {/* BADGE DE RISCO */}
                         {entry.data.risk && (
-                            <div class={`flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border rounded-sm ${
+                            <div class={`flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border ${
                                 entry.data.risk === 'CRITICAL' ? 'border-red-500 text-red-500 bg-red-950/10 animate-pulse' :
                                 entry.data.risk === 'HIGH' ? 'border-orange-500 text-orange-500 bg-orange-950/10 animate-pulse' :
                                 entry.data.risk === 'MEDIUM' ? 'border-yellow-500 text-yellow-500 bg-yellow-950/10 animate-pulse' :
