@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Filter, X, ChevronDown, ChevronUp, Shield, Bug, Trash2, RotateCcw, AlertTriangle } from 'lucide-react';
+import { Terminal, Filter, X, ChevronDown, Shield, Bug, RotateCcw, AlertTriangle } from 'lucide-react';
 import LatestResearch from './LatestResearch';
 
 const BlogFilter = ({ allPosts }) => {
