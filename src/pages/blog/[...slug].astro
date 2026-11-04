@@ -232,16 +232,16 @@ headings.forEach((h: any) => {
                 {/* Header do Artigo */}
                 <header class="mb-12 border-b border-neutral-800 pb-10">
 
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="flex items-center gap-2 text-neutral-600 text-[10px] uppercase tracking-[0.2em]">
+                    <div class="flex justify-between items-start gap-3 mb-6">
+                        <div class="flex items-center gap-2 min-w-0 text-neutral-600 text-[10px] uppercase tracking-[0.2em]">
                             <FileText className="w-4 h-4" />
                             {/* Slug visual */}
-                            <span>Declassified Report // {(entry as any).slug || entry.id}</span>
+                            <span class="break-all">Declassified Report // {(entry as any).slug || entry.id}</span>
                         </div>
 
                         {/* BADGE DE RISCO */}
                         {entry.data.risk && (
-                            <div class={`flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border ${
+                            <div class={`shrink-0 flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border ${
                                 entry.data.risk === 'CRITICAL' ? 'border-red-500 text-red-500 bg-red-950/10 animate-pulse' :
                                 entry.data.risk === 'HIGH' ? 'border-orange-500 text-orange-500 bg-orange-950/10 animate-pulse' :
                                 entry.data.risk === 'MEDIUM' ? 'border-yellow-500 text-yellow-500 bg-yellow-950/10 animate-pulse' :
@@ -690,6 +690,14 @@ headings.forEach((h: any) => {
         padding: 0;
         border: none;
         color: inherit;
+    }
+
+    /* Celular: palavra longa sem espaço (URL, hash, caminho, vetor CVSS) quebra
+       a linha e tabela larga rola dentro do próprio bloco, em vez de empurrar a
+       página para o lado. Blocos de código seguem rolando (white-space: pre). */
+    @media (max-width: 767px) {
+        .article-content { overflow-wrap: break-word; }
+        .article-content table { display: block; overflow-x: auto; }
     }
 
     /* Botão Copiar */
