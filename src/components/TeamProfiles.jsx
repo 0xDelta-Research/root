@@ -73,7 +73,7 @@ const TeamProfiles = (props) => {
             >
               {/* Link esticado: clicar em qualquer área do card abre o perfil */}
               <a
-                href={`/team/${member.id}`}
+                href={`/team/${member.id}/`}
                 aria-label={`Open ${member.data.name} profile`}
                 className="absolute inset-0 z-10 cursor-pointer"
               ></a>

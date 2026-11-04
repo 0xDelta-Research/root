@@ -46,6 +46,15 @@ function checkPage(html, file) {
 
   const h1 = (html.match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1) problems.push(`<h1>: expected 1, found ${h1}`);
+
+  // Links internos: página sem barra final custa um 301 no GitHub Pages, e
+  // destino inexistente é link quebrado.
+  for (const href of new Set([...html.matchAll(/<a\b[^>]*\shref="(\/[^"]*)"/g)].map((m) => m[1]))) {
+    const p = decodeURIComponent(href.split(/[?#]/)[0]);
+    const isFile = /\.[a-z0-9]+$/i.test(p);
+    if (!isFile && !p.endsWith('/')) problems.push(`internal link without trailing slash: ${href}`);
+    else if (!fs.existsSync(path.join(dist, isFile ? p : p + 'index.html'))) problems.push(`internal link to missing page: ${href}`);
+  }
   return problems;
 }
 
