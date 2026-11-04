@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders'; // Importante para Astro v5
 
 // 1. Definição da coleção do BLOG
@@ -29,7 +30,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).optional(),
     collaborators: z.array(z.string()).optional(),
     image: z.string().optional(),
-    repoLink: z.string().url().optional(),
+    repoLink: z.url().optional(),
     risk: z.enum(['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFO']).optional(),
   })
 });
@@ -66,17 +67,17 @@ const team = defineCollection({
       tooltip: z.string(),
     }).optional(),
     social: z.object({
-      github: z.string().url().optional(),
-      linkedin: z.string().url().optional(),
-      twitter: z.string().url().optional(),
-      website: z.string().url().optional(),
+      github: z.url().optional(),
+      linkedin: z.url().optional(),
+      twitter: z.url().optional(),
+      website: z.url().optional(),
     }).optional(),
 
     // Perfis em plataformas de bug bounty. Lista aberta: uma plataforma nova
     // entra só pelo frontmatter, sem mexer em código.
     bugBounty: z.array(z.object({
       platform: z.string(),
-      url: z.string().url(),
+      url: z.url(),
     })).optional(),
   })
 });
