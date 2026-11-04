@@ -39,7 +39,7 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
         return (
           <a
             key={post.id || post.slug}
-            href={`/blog/${post.slug || post.id}`}
+            href={`/blog/${post.slug || post.id}/`}
             className={`
                 group relative flex flex-col h-full p-6
                 border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm

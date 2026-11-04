@@ -15,6 +15,15 @@ export default defineConfig({
       allowedHosts: true
     }
   },
+  // Baixa a página de um link quando o mouse passa por ele (ou o foco chega):
+  // a navegação seguinte sai do cache, quase instantânea.
+  prefetch: { prefetchAll: true },
+  // Imagens dos relatórios ganham srcset: o celular baixa a versão do tamanho
+  // da tela em vez do arquivo cheio.
+  image: {
+    layout: 'constrained',
+    responsiveStyles: true,
+  },
   markdown: {
     shikiConfig: {
       langs: [yaraGrammar],
