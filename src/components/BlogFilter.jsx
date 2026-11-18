@@ -18,6 +18,27 @@ const BlogFilter = ({ allPosts }) => {
     if (s) setSearchQuery(s);
   }, []);
 
+  // Busca no texto inteiro dos relatórios: o Pagefind indexa o corpo dos posts
+  // no build (npm run build). No `astro dev` o índice não existe e a busca fica
+  // só em título/descrição/tags.
+  const [textMatches, setTextMatches] = useState(null);
+  useEffect(() => {
+    const q = searchQuery.trim();
+    if (!q) { setTextMatches(null); return; }
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      try {
+        const pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+        const { results } = await pagefind.search(q);
+        const urls = await Promise.all(results.map((r) => r.data().then((d) => d.url)));
+        if (!cancelled) setTextMatches(new Set(urls));
+      } catch {
+        if (!cancelled) setTextMatches(null);
+      }
+    }, 200);
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [searchQuery]);
+
   // Listas
   const allBlueCategories = [ 'Threat Hunting', 'OSINT', 'Detection Engineering', 'Cyber Threat Intelligence', 'Malware Analysis & Reverse Engineering', 'Privacy Compliance Officer' ];
   const allRedCategories = [ 'Offensive Techniques', 'Web Security', 'Network Security', 'Cloud Security', 'AD Security', 'CVEs' ];
@@ -34,7 +55,8 @@ const BlogFilter = ({ allPosts }) => {
     const query = searchQuery.toLowerCase();
     const matchSearch = post.data.title.toLowerCase().includes(query) ||
                         post.data.description.toLowerCase().includes(query) ||
-                        post.data.tags?.some((tag) => tag.toLowerCase().includes(query));
+                        post.data.tags?.some((tag) => tag.toLowerCase().includes(query)) ||
+                        textMatches?.has(`/blog/${post.id}/`);
     const matchCategory = activeCategory === '' ? true : post.data.category === activeCategory;
     const matchRisk = activeRisk === '' ? true : post.data.risk === activeRisk;
 
