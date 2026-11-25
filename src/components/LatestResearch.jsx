@@ -37,12 +37,15 @@ const LatestResearch = ({ posts = [], variant = 'stealth' }) => {
         const teamBgHover = isRed ? 'hover:bg-red-950/10' : 'hover:bg-blue-950/10';
 
         return (
+          // Sem backdrop-blur: com 20 cards no /blog o desfoque era recalculado a
+          // cada quadro de rolagem (20% de quadros travados). Sobre o fundo
+          // escuro ele não aparecia.
           <a
             key={post.id || post.slug}
             href={`/blog/${post.slug || post.id}/`}
             className={`
                 group relative flex flex-col h-full p-6
-                border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm
+                border border-neutral-800 bg-neutral-900/40
                 transition-all duration-300 ease-out cursor-pointer
                 ${teamHoverBorder} ${teamHoverShadow} ${teamBgHover}
             `}
